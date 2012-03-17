@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:orientation="vertical" >
+
+    <!-- Type icon -->
+
+    <ImageView
+        android:id="@+id/taskType"
+        android:layout_width="25dp"
+        android:layout_height="25dp"
+        android:layout_marginLeft="7dp"
+        android:layout_marginTop="10dp"
+        android:src="@android:drawable/stat_notify_error" />
+
+    <!-- Task ID -->
+
+    <TextView
+        android:id="@+id/rowTaskListByJQLActivityTaskKeyTextView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBottom="@id/taskType"
+        android:layout_toRightOf="@id/taskType"
+        android:paddingLeft="3dp"
+        android:text="@string/rowTasklist_taskSummary_TextView"
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:textColor="@color/black_font" />
+
+    <!-- Asignee -->
+
+    <TextView
+        android:id="@+id/rowTaskListByJQLActivity_asignee_TextView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignTop="@id/rowTaskListByJQLActivityTaskKeyTextView"
+        android:layout_toRightOf="@id/rowTaskListByJQLActivityTaskKeyTextView"
+        android:paddingLeft="10dp"
+        android:text="@string/rowTaskListByJQL_assignment"
+        android:textColor="@color/gray_font" />
+
+    <TextView
+        android:id="@+id/rowTaskListByJQLActivity_subtask_TextView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentRight="true"
+        android:layout_alignTop="@id/rowTaskListByJQLActivity_asignee_TextView"
+        android:src="@android:drawable/ic_menu_add"
+        android:text="@string/ok"
+        android:layout_marginRight="5dp"
+        android:textColor="@color/black_font" />
+
+    <!-- Priority icon -->
+
+    <ImageView
+        android:id="@+id/taskPriority"
+        android:layout_width="25dp"
+        android:layout_height="25dp"
+        android:layout_below="@id/taskType"
+        android:layout_marginLeft="7dp"
+        android:src="@android:drawable/stat_notify_error" />
+
+    <!-- Task name -->
+
+    <TextView
+        android:id="@+id/rowTaskListByJQLActivityTaskSummaryTextView"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignTop="@id/taskPriority"
+        android:layout_toRightOf="@id/taskPriority"
+        android:paddingBottom="10dp"
+        android:paddingLeft="3dp"
+        android:text="@string/rowTasklist_taskSummary_TextView"
+        android:textColor="@color/black_font" />
+
+    <!-- Color stripe -->
+
+    <LinearLayout
+        android:id="@+id/taskColor"
+        android:layout_width="5dp"
+        android:layout_height="match_parent"
+        android:layout_alignBottom="@id/rowTaskListByJQLActivityTaskSummaryTextView"
+        android:layout_alignParentLeft="true"
+        android:layout_alignRight="@+id/rowTaskListByJQLActivity_color_TextView"
+        android:background="@color/example_color"
+        android:padding="10dp" />
+
+</RelativeLayout>

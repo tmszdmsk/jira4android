@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string-array name="http_or_https">
+        <item>@string/item_http</item>
+        <item>@string/item_https</item>
+    </string-array>
+
+</resources>

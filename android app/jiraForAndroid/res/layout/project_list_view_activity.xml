@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/linearLayout1"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:background="@color/background"
+    android:orientation="vertical" >
+
+    <include layout="@layout/header_page_viewer" />
+    
+    <RelativeLayout
+        android:id="@+id/relativeLayout1"
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent" >
+
+       <include layout="@layout/progress_bar_layout"/>
+
+        <TextView
+            android:id="@+id/project_list_no_projects"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:layout_marginLeft="30dp"
+            android:layout_marginRight="30dp"
+            android:text="@string/no_project_visible_for_you_on_server"
+            android:textAppearance="?android:attr/textAppearanceLarge"
+            android:textColor="@color/black_font"
+            android:visibility="invisible" />
+
+        <ListView
+            android:id="@+id/project_list_view"
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent"
+            android:cacheColorHint="@color/background"
+            android:visibility="invisible" >
+        </ListView>
+    </RelativeLayout>
+
+</LinearLayout>

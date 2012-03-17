@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:background="@color/background"
+    android:orientation="vertical" >
+
+    <RelativeLayout
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical" >
+
+        <!-- Logger name -->
+
+        <TextView
+            android:id="@+id/worklogListUserTextView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentLeft="true"
+            android:paddingLeft="5dp"
+            android:text="@string/worklogger"
+            android:textAppearance="?android:attr/textAppearanceSmall"
+            android:textColor="#3c78b5"
+            android:textStyle="bold" />
+        <!-- Date of worklog -->
+
+        <TextView
+            android:id="@+id/worklogListDateTextView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_toRightOf="@id/commentListUserTextView"
+            android:gravity="right"
+            android:paddingRight="5dp"
+            android:text="@string/worklog_date"
+            android:textColor="@color/gray_font"
+            android:textSize="11dp" />
+    </RelativeLayout>
+
+    <RelativeLayout
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical" >
+
+        <TextView
+            android:id="@+id/worklogListTimeSpentLabelTextView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:paddingLeft="10dp"
+            android:paddingRight="5dp"
+            android:text="@string/worklog_time_spent_label"
+            android:textAppearance="?android:attr/textAppearanceSmall"
+            android:textColor="@color/black_font" />
+
+        <TextView
+            android:id="@+id/worklogListTimeSpentTextView"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_toRightOf="@id/worklogListTimeSpentLabelTextView"
+            android:paddingLeft="0dp"
+            android:paddingRight="5dp"
+            android:text="@string/worklog_time_spent"
+            android:textAppearance="?android:attr/textAppearanceSmall"
+            android:textColor="@color/black_font" />
+    </RelativeLayout>
+
+    <!-- Comment shown in row -->
+
+    <TextView
+        android:id="@+id/worklogListCommentTextView"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:paddingLeft="10dp"
+        android:paddingRight="5dp"
+        android:text="@string/worklog_comment"
+        android:textAppearance="?android:attr/textAppearanceSmall"
+        android:textColor="@color/black_font" />
+
+</LinearLayout>

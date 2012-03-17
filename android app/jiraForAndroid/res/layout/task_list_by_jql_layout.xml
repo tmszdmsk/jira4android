@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:background="@color/background"
+    android:orientation="vertical" >
+
+   <include layout="@layout/header_page_viewer" />
+
+    <RelativeLayout
+        android:id="@+id/filters_list_relative_layout"
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent" >
+
+        <include layout="@layout/progress_bar_layout" />
+
+        <ListView
+            android:id="@+id/taskListByJQLActivityListView"
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent"
+            android:cacheColorHint="@color/background"
+            android:visibility="invisible" />
+
+        <TextView
+            android:id="@+id/issues_list_no_issues"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:text="@string/no_issues_on_server"
+            android:textColor="@color/black_font"
+            android:textSize="30dp"
+            android:visibility="invisible" />
+    </RelativeLayout>
+
+</LinearLayout>

@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:background="@color/background"
+    android:focusable="true"
+    android:focusableInTouchMode="true" >
+
+    <!-- Tutaj będą wyświetlane komentarze -->
+
+    <RelativeLayout
+        android:id="@+id/emptyLayout"
+        android:layout_width="fill_parent"
+        android:layout_height="match_parent"
+        android:layout_above="@+id/linearLayout" >
+
+        <ListView
+            android:id="@+id/comments_list_listview"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentTop="true"
+            android:cacheColorHint="@color/background"
+            android:stackFromBottom="true" />
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:id="@+id/linearLayout"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:orientation="horizontal" >
+
+        <EditText
+            android:id="@+id/edit_text_comment"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_toLeftOf="@+id/button_send_comment"
+            android:hint="@string/hint_enter_comment"
+            android:inputType="textMultiLine" >
+        </EditText>
+
+        <Button
+            android:id="@+id/button_send_comment"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:enabled="false"
+            android:singleLine="true"
+            android:text="@string/send" >
+        </Button>
+    </RelativeLayout>
+
+    <include layout="@layout/progress_bar_layout" />
+
+    <TextView
+        android:id="@+id/comments_list_no_comments"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerInParent="true"
+        android:layout_marginLeft="30dp"
+        android:layout_marginRight="30dp"
+        android:visibility="invisible"
+        android:text="@string/no_comments_on_issue"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:textColor="@color/black_font" />
+
+</RelativeLayout>

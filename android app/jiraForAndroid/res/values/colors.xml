@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <color name="background">#ffffffff</color>
+    <color name="black_font">#ff000000</color>
+    <color name="black">#ff000000</color>
+    <color name="white_font">#ffffffff</color>
+    <color name="page_indicator">#ffff0000</color>
+    <color name="blue_font">#ff007fff</color>
+    <color name="gray_font">#ff696969</color>
+
+    <!-- Przykładowy kolor prawego paska przy tasku, do usunięcia. -->
+    <color name="example_color">#ffff0000</color>
+
+</resources>

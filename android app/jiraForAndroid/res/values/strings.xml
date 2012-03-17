@@ -1,0 +1,183 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="app_name">Jira4android</string>
+    <string name="unknown_error">Unknown Error</string>
+
+    <!-- Useful strings -->
+    <string name="ok">OK</string>
+    <string name="cancel">Cancel</string>
+
+    <!-- START Login Activity -->
+    <string name="login_URL_hint">example.org</string>
+    <string name="login_username_hint">Username</string>
+    <string name="login_password_hint">Password</string>
+    <string name="login_login_Button">Login</string>
+    <string name="unknown_host">Unknown Host</string>
+    <!-- For toasts -->
+    <string name="login_toast_wrongURL">Incorrect URL!</string>
+    <string name="login_toast_emptyUsername">Username cannot be empty!</string>
+    <string name="login_toast_emptyPassword">Password cannot be empty!</string>
+    <string name="login_toast_invalidUsername">Username is invalid!</string>
+    <string name="login_toast_invalidPassword">Password is invalid!</string>
+    <string name="login_toast_emptyUsernamePassword">Username and password cannot be empty!</string>
+    <string name="login_toast_loginFail">Login fail</string>
+    <string name="login_toast_logoutFail">Logout fail</string>
+    <string name="login_toast_unresolvedHost">Host is unresolved</string>
+    <string name="login_toast_invalidUsernameOrPassword">Invalid username or password</string>
+    <string name="login_toast_no_internet">No Internet</string>
+    <string name="login_toast_connectionError">Connection error</string>
+    <string name="login_toast_connectionInterrupted">Connection interrupted</string>
+    <string name="login_toast_validationFail">Validation error</string>
+    <string name="login_toast_permissionViolated">Permissions are violated remotely</string>
+    <!-- END Login Activity -->
+
+
+    <!-- START Project List Activity -->
+    <string name="project_list_name">Project List</string>
+    <string name="view_title"><b>
+            <i>Chose a project to see it:</i>
+        </b></string>
+    <string name="ok_button_text"><u>Ok</u></string>
+    <!-- END Project List Activity -->
+
+
+    <!-- START Task Details Activity -->
+    <string name="taskDetailsActivityDetails">Details</string>
+    <string name="taskDetailsActivityDates">Dates</string>
+    <string name="taskDetailsActivityPeople">People</string>
+    <string name="taskDetailsActivityType">Type: </string>
+    <string name="taskDetailsActivityPriority">Priority: </string>
+    <string name="taskDetailsActivityAffectsVersion">Affects Version/s: </string>
+    <string name="taskDetailsActivityComponent">Component/s: </string>
+    <!-- <string name="taskDetailsActivityLabels">Labels:&#160;</string> -->
+    <string name="taskDetailsActivityStatus">Status: </string>
+    <string name="taskDetailsActivityResolution">Resolution: </string>
+    <string name="taskDetailsActivityFixVersion">Fix Version/s: </string>
+    <string name="taskDetailsActivityAssignee">Assignee: </string>
+    <string name="taskDetailsActivityReporter">Reporter: </string>
+    <string name="taskDetailsActivityCreated">Created: </string>
+    <string name="taskDetailsActivityUpdated">Updated: </string>
+    <string name="none">None</string>
+    <string name="taskDetailsActivityDescription">Description</string>
+    <string name="taskDetailsActivitySummary">Summary</string>
+    <!-- END Task Details Activity -->
+
+
+    <!-- START Task List Activity -->
+    <string name="task_list_name">Task List</string>
+    <string name="tasklist_taskKey_TextView">Key of task</string>
+    <string name="tasklist_taskSummary_TextView">Summary of task</string>
+    <string name="tasklist_taskNumberOfSubs_TextView">Number of subtasks</string>
+    <string name="tasklist_subtaskKey_TextView">Key of subtask</string>
+    <string name="tasklist_subtaskSummary_TextView">Summary of subtask</string>
+    <!-- END Task List Activity -->
+
+
+    <!-- START Filters List Activity -->
+    <string name="filters_list_name">Filters List</string>
+
+    <!-- Titles in page view ORDER IS IMPORTANT -->
+    <string name="filters_title1">Local</string>
+    <string name="filters_title2">Server Filters</string>
+    <!-- Filters Names ORDER IS IMPORTANT -->
+    <string name="filters_list_1_name">Assigned to me</string>
+    <string name="filters_list_2_name">Added Recently</string>
+    <string name="filters_list_3_name">Most Important Unassigned</string>
+    <string name="filters_list_4_name">All Open Unassigned</string>
+    <string name="filters_list_5_name">All in progress</string>
+    <string name="filters_list_6_name">Resolved recently</string>
+    <string name="filters_list_7_name">Updated Recently</string>
+    <string name="filters_list_8_name">Reported by me</string>
+    <!-- Filters JQL ORDER IS IMPORTANT -->
+    <string name="filters_list_1_JQL">assignee = currentUser() and status in (Open ,\"In Progress\",Reopened) ORDER BY updated</string>
+    <string name="filters_list_2_JQL">created is not EMPTY ORDER BY created</string>
+    <string name="filters_list_3_JQL">assignee is EMPTY ORDER BY priority,updated</string>
+    <string name="filters_list_4_JQL">status = Open  And assignee is EMPTY ORDER BY updated</string>
+    <string name="filters_list_5_JQL">status = \"In Progress\" ORDER BY updated</string>
+    <string name="filters_list_6_JQL">status in (Closed,Resolved) ORDER BY updated</string>
+    <string name="filters_list_7_JQL">updated is not EMPTY ORDER BY updated</string>
+    <string name="filters_list_8_JQL">reporter = currentUser() ORDER BY updated</string>
+    <!-- END Task Filters List Activity -->
+
+
+    <!-- START Row Task List By JQL Activity -->
+    <string name="issues">Issues</string>
+    <string name="rowTaskListByJQL_assignment">Unassigned</string>
+    <string name="rowTasklist_taskKey_TextView">Key of task</string>
+    <string name="rowTasklist_taskSummary_TextView">Summary of task</string>
+    <!-- END Row Task List By JQL Activity -->
+
+    <string name="task_list_by_jql_activity">Task List</string>
+    <string name="data_is_loading">Data is loading...</string>
+    <string name="no_filters_on_server">No filters on server</string>
+    <string name="no_project_visible_for_you_on_server">No project visible for you on server</string>
+    <string name="no_issues_on_server">No Issues on server</string>
+    <string name="remember_me">Remember me</string>
+    <string name="if_you_check_this_field_the_user_and_password_will_be_saved_and_log_in_will_be_automaticly">If you check this field the user and password will be saved and log in will be automaticly</string>
+
+    <!-- START Comment List -->
+    <string name="commentator">Commentator</string>
+    <string name="comment_date">Date of comment</string>
+    <string name="comment">Comment</string>
+    <string name="no_comments_on_issue">No Comments on this Issue</string>
+    <!-- END Comment List -->
+    <string name="hint_enter_comment">Enter a comment</string>
+    <string name="time_out_has_occurred_on_a_socket_read">Time out has occurred on a socket read</string>
+    <string name="connection_refused">Connection refused</string>
+    <string name="bind_socket_problem">Bind socket problem</string>
+    <string name="http_needs_to_be_retired">HTTP needs to be retired</string>
+    <string name="malformed_url_">Malformed URL!</string>
+    <string name="no_route_to_host_i_can_t_connect">No route to host. I can\'t connect</string>
+    <string name="icmp_port_unreachable">ICMP port unreachable</string>
+    <string name="tcp_error">TCP error</string>
+    <string name="socket_problems_tcp_problem">Socket problems. TCP problem</string>
+    <string name="unknown_service_">Unknown service!</string>
+    <string name="uri_syntax_problem">URI syntax problem</string>
+    <string name="send">Send</string>
+    <string name="authentication_failures_or_errors_">Authentication failures or errors.</string>
+    <string name="problems_on_server_with_data">Problems on server with data</string>
+    <string name="permissions_are_violated_remotely">Permissions are violated remotely</string>
+    <string name="remote_data_does_not_validate_properly">Remote data does not validate properly</string>
+    <string name="logout">Logout</string>
+    <string name="help">Help</string>
+
+    <!-- START Headers -->
+    <string name="projects">Projects</string>
+    <string name="filters">Filters</string>
+    <!-- END Headers -->
+
+
+    <!-- START Worklog -->
+    <string name="no_worklog_on_issue">No work has yet been logged on this issue</string>
+    <string name="worklogger">Work logger</string>
+    <string name="worklog_date">Date of work log</string>
+    <string name="worklog_time_spent_label">Time spent:</string>
+    <string name="worklog_time_spent">time spent</string>
+    <string name="worklog_comment">Comment</string>
+    <!-- END Worklog -->
+
+    <string name="crash_toast_text">Ooooops ! I crashed, but a report has been sent to my developer to help him fix the issue !</string>
+    <string name="crash_notif_ticker_text">Unexpected error, please send a report...</string>
+    <string name="crash_notif_title">CrashTest has crashed...</string>
+    <string name="crash_notif_text">Please click here to help fix the issue.</string>
+    <string name="crash_dialog_title">CrashTest has crashed</string>
+    <string name="crash_dialog_text">An unexpected error occurred forcing the
+    application to stop. Please help us fix this by sending us error data,
+    all you have to do is click \'OK\'.</string>
+    <string name="crash_dialog_comment_prompt">You might add your comments about the problem below:</string>
+    <string name="crash_dialog_ok_toast">Thank you !</string>
+    <string name="feedback">Feedback</string>
+    <string name="feedbackTitle">Report a bug / Request feature</string>
+    <string name="back">Back</string>
+    <string name="feedbackActivityLabel">Feedback please fill and send :)</string>
+    <string name="please_type_here">Please type here...</string>
+    <!-- In future we should set it for e.g jira group mail -->
+    <string name="mailForFeedback">drozddawid.uam@gmail.com</string>
+
+    <!-- Help -->
+    <string name="help_button">Close</string>
+    <string name="item_http">http://</string>
+    <string name="item_https">https://</string>
+
+</resources>

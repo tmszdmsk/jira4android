@@ -1,0 +1,115 @@
+body
+{
+    background-image: url('background.png');
+    margin: 0;
+}
+hr
+{
+    width: 98%;
+    color: #505050;
+    background-color: #505050;
+}
+.main
+{
+    margin-left: auto;
+    margin-right: auto;
+    margin-top: 10px;
+    width: 900px;
+}
+.phone
+{
+    float: left;
+    margin-right: 15px;
+}
+.header1
+{
+    margin-top: 15px;
+    font-size: 45px;
+    font-family: PFDinDisplayPro, sans-serif;
+}
+.description1
+{
+    margin-top: 25px;
+    font-family: PFDinDisplayPro, sans-serif;
+}
+.download
+{
+    float: right;
+    margin-top: 50px;
+    margin-right: 35px;
+}
+.works_on
+{
+    text-align: center;
+    font-style: italic;
+    font-size: 12px;
+}
+.shadow
+{
+    clear: both;
+    background-image: url('shadow.png');
+    height: 24px;
+}
+.footer
+{
+    background-color: black;
+    color: white;
+}
+.footer_content
+{
+    margin-left: auto;
+    margin-right: auto;
+    width: 900px;
+}
+.header2
+{
+    font-size: 24px;
+    font-family: PFDinDisplayPro, sans-serif;
+}
+.screen
+{
+    float: left;
+    width: 300px;
+    text-align: center;
+}
+.feature_div
+{
+    float: left;
+    width: 200px;
+    margin-left: 50px;
+    margin-right: 50px;
+}
+.header3
+{
+    font-size: 22px;
+    font-family: PFDinDisplayPro, sans-serif;
+    color: #4f4f4f;
+}
+.feature
+{
+    font-size: 14px;
+    font-family: PFDinDisplayPro, sans-serif;
+    color: #ffffff;
+}
+.kino
+{
+    float: left;
+    width: 300px;
+    text-align: center;
+}
+.cogision
+{
+    float: left;
+    width: 300px;
+    text-align: center;
+}
+.uam
+{
+    float: left;
+    width: 300px;
+    text-align: center;
+}
+.clear
+{
+    clear: both;
+}

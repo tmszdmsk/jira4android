@@ -1,0 +1,323 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:background="@color/background"
+    android:orientation="vertical" >
+
+    <ScrollView
+        android:id="@+id/scrollView2"
+        android:layout_width="fill_parent"
+        android:layout_height="match_parent"
+        android:layout_marginBottom="10dp"
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="10dp"
+        android:layout_marginTop="10dp" >
+
+        <LinearLayout
+            android:id="@+id/linearLayout2"
+            android:layout_width="fill_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical" >
+            
+            <!-- Summary -->
+
+            <TextView
+                android:id="@+id/taskdetailsActivitySummaryTextView"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="5dp"
+                android:text="@string/taskDetailsActivitySummary"
+                android:textColor="#3c78b5"
+                android:textSize="20dp" />
+
+            <TextView
+                android:id="@+id/taskdetailsActivitySummaryValueTextView"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="5dp"
+                android:text="@string/taskDetailsActivitySummary"
+                android:textColor="@color/black_font"
+                android:textSize="15dp" />
+                
+            <!-- Description -->
+
+            <TextView
+                android:id="@+id/taskdetailsActivityDescriptionTextView"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="5dp"
+                android:text="@string/taskDetailsActivityDescription"
+                android:textColor="#3c78b5"
+                android:textSize="20dp" />
+
+            <TextView
+                android:id="@+id/taskdetailsActivityDescriptionValueTextView"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="5dp"
+                android:text="@string/taskDetailsActivityDescription"
+                android:textColor="@color/black_font"
+                android:textSize="15dp" />
+
+            <!-- Details -->
+
+            <TextView
+                android:id="@+id/taskdetailsActivityDetailsTextView"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="5dp"
+                android:text="@string/taskDetailsActivityDetails"
+                android:textColor="#3c78b5"
+                android:textSize="20dp" />
+
+            <TableLayout
+                xmlns:android="http://schemas.android.com/apk/res/android"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="5dp"
+                android:stretchColumns="1" >
+
+                <!-- Type -->
+
+                <TableRow>
+
+                    <TextView
+                        android:id="@+id/taskdetailsActivityDetailsTypeTextView"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/taskDetailsActivityType"
+                        android:textColor="@color/gray_font"
+                        android:textSize="15dp" />
+
+                    <RelativeLayout>
+
+                        <ImageView
+                            android:id="@+id/taskType"
+                            android:layout_width="25dp"
+                            android:layout_height="25dp"
+                            android:src="@android:drawable/stat_notify_error" />
+
+                        <TextView
+                            android:id="@+id/taskdetailsActivityDetailsTypeValueTextView"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginLeft="5dp"
+                            android:layout_toRightOf="@id/taskType"
+                            android:text="@string/none"
+                            android:textColor="@color/black_font"
+                            android:textSize="15dp" />
+                    </RelativeLayout>
+                </TableRow>
+
+                <!-- Priority -->
+
+                <TableRow>
+
+                    <TextView
+                        android:id="@+id/taskdetailsActivityDetailsPriorityTextView"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/taskDetailsActivityPriority"
+                        android:textColor="@color/gray_font"
+                        android:textSize="15dp" />
+
+                    <RelativeLayout>
+
+                        <ImageView
+                            android:id="@+id/taskPriority"
+                            android:layout_width="25dp"
+                            android:layout_height="25dp"
+                            android:src="@android:drawable/stat_notify_error" />
+
+                        <TextView
+                            android:id="@+id/taskdetailsActivityDetailsPriorityValueTextView"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginLeft="5dp"
+                            android:layout_toRightOf="@id/taskPriority"
+                            android:text="@string/none"
+                            android:textColor="@color/black_font"
+                            android:textSize="15dp" />
+                    </RelativeLayout>
+                </TableRow>
+
+                <!-- Status -->
+
+                <TableRow>
+
+                    <TextView
+                        android:id="@+id/taskdetailsActivityDetailsStatusTextView"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/taskDetailsActivityStatus"
+                        android:textColor="@color/gray_font"
+                        android:textSize="15dp" />
+
+                    <RelativeLayout>
+
+                        <ImageView
+                            android:id="@+id/taskStatus"
+                            android:layout_width="25dp"
+                            android:layout_height="25dp"
+                            android:src="@android:drawable/stat_notify_error" />
+
+                        <TextView
+                            android:id="@+id/taskdetailsActivityDetailsStatusValueTextView"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginLeft="5dp"
+                            android:layout_toRightOf="@id/taskStatus"
+                            android:text="@string/none"
+                            android:textColor="@color/black_font"
+                            android:textSize="15dp" />
+                    </RelativeLayout>
+                </TableRow>
+
+                <!-- Resolution -->
+
+                <TableRow>
+
+                    <TextView
+                        android:id="@+id/taskdetailsActivityDetailsResolutionTextView"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/taskDetailsActivityResolution"
+                        android:textColor="@color/gray_font"
+                        android:textSize="15dp" />
+
+                    <TextView
+                        android:id="@+id/taskdetailsActivityDetailsResolutionValueTextView"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/none"
+                        android:textColor="@color/black_font"
+                        android:textSize="15dp" />
+                </TableRow>
+            </TableLayout>
+
+            <!-- People -->
+
+            <TextView
+                android:id="@+id/taskdetailsActivityPeopleTextView"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="5dp"
+                android:text="@string/taskDetailsActivityPeople"
+                android:textColor="#3c78b5"
+                android:textSize="20dp" />
+
+            <TableLayout
+                xmlns:android="http://schemas.android.com/apk/res/android"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="5dp"
+                android:stretchColumns="1" >
+
+                <!-- Assignee -->
+
+                <TableRow>
+
+                    <TextView
+                        android:id="@+id/taskdetailsActivityPeopleAssigneeTextView"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/taskDetailsActivityAssignee"
+                        android:textColor="@color/gray_font"
+                        android:textSize="15dp" />
+
+                    <TextView
+                        android:id="@+id/taskdetailsActivityPeopleAssigneeValueTextView"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/none"
+                        android:textColor="@color/black_font"
+                        android:textSize="15dp" />
+                </TableRow>
+
+                <!-- Reporter -->
+
+                <TableRow>
+
+                    <TextView
+                        android:id="@+id/taskdetailsActivityPeopleReporterTextView"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/taskDetailsActivityReporter"
+                        android:textColor="@color/gray_font"
+                        android:textSize="15dp" />
+
+                    <TextView
+                        android:id="@+id/taskdetailsActivityPeopleReporterValueTextView"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/none"
+                        android:textColor="@color/black_font"
+                        android:textSize="15dp" />
+                </TableRow>
+            </TableLayout>
+
+            <!-- Dates -->
+
+            <TextView
+                android:id="@+id/taskdetailsActivityDatesTextView"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="5dp"
+                android:text="@string/taskDetailsActivityDates"
+                android:textColor="#3c78b5"
+                android:textSize="20dp" />
+
+            <TableLayout
+                xmlns:android="http://schemas.android.com/apk/res/android"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="5dp"
+                android:stretchColumns="1" >
+
+                <!-- Created -->
+
+                <TableRow>
+
+                    <TextView
+                        android:id="@+id/taskdetailsActivityDatesCreatedTextView"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/taskDetailsActivityCreated"
+                        android:textColor="@color/gray_font"
+                        android:textSize="15dp" />
+
+                    <TextView
+                        android:id="@+id/taskdetailsActivityDatesCreatedValueTextView"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/none"
+                        android:textColor="@color/black_font"
+                        android:textSize="15dp" />
+                </TableRow>
+
+                <!-- Updated -->
+
+                <TableRow>
+
+                    <TextView
+                        android:id="@+id/taskdetailsActivityDatesUpdatedTextView"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/taskDetailsActivityUpdated"
+                        android:textColor="@color/gray_font"
+                        android:textSize="15dp" />
+
+                    <TextView
+                        android:id="@+id/taskdetailsActivityDatesUpdatedValueTextView"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/none"
+                        android:textColor="@color/black_font"
+                        android:textSize="15dp" />
+                </TableRow>
+            </TableLayout>
+        </LinearLayout>
+    </ScrollView>
+
+</LinearLayout>

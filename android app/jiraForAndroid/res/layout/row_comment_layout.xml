@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:orientation="vertical" 
+    android:background="@color/background">
+
+    <RelativeLayout
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical" >
+
+        <!-- Commentator name-->
+
+        <TextView
+            android:id="@+id/commentListUserTextView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentLeft="true"
+            android:paddingLeft="5dp"
+            android:text="@string/commentator"
+            android:textAppearance="?android:attr/textAppearanceSmall"
+            android:textColor="#3c78b5"
+            android:textStyle="bold" />
+        <!-- Date of comment -->
+
+        <TextView
+            android:id="@+id/commentListDateTextView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_toRightOf="@id/commentListUserTextView"
+            android:gravity="right"
+            android:paddingRight="5dp"
+            android:text="@string/comment_date"
+            android:textColor="@color/gray_font"
+            android:textSize="11dp" />
+    </RelativeLayout>
+    <!-- Comment shown in row-->
+	
+    <TextView
+        android:id="@+id/commentListCommentTextView"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:paddingLeft="10dp"
+        android:paddingRight="5dp"
+        android:text="@string/comment"
+        android:textAppearance="?android:attr/textAppearanceSmall"
+        android:textColor="@color/black_font" />
+
+</LinearLayout>
