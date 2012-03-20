@@ -6,7 +6,7 @@ import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.URL;
 
-import jira.For.Android.NaSzybkiegoInterfacePatrzZadanieJFA257;
+import jira.For.Android.IconUrlProvider;
 import jira.For.Android.Connector.Connector;
 
 import android.graphics.Bitmap;
@@ -54,7 +54,7 @@ import android.widget.ImageView;
  *</complexType>
  */
 
-public class IssueType implements NaSzybkiegoInterfacePatrzZadanieJFA257{
+public class IssueType implements IconUrlProvider{
 
 	private String id, name, description, icon;
 	private boolean subTask;

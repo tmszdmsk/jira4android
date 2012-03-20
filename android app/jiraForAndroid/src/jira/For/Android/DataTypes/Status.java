@@ -1,6 +1,6 @@
 package jira.For.Android.DataTypes;
 
-import jira.For.Android.NaSzybkiegoInterfacePatrzZadanieJFA257;
+import jira.For.Android.IconUrlProvider;
 
 /*- Structure of RemotePriority
  * 
@@ -40,7 +40,7 @@ import jira.For.Android.NaSzybkiegoInterfacePatrzZadanieJFA257;
  *</complexType>
  */
 
-public class Status implements NaSzybkiegoInterfacePatrzZadanieJFA257 {
+public class Status implements IconUrlProvider {
 
 	private String id, name, description, icon;
 	

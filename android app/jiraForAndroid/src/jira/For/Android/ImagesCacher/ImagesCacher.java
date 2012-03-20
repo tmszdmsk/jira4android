@@ -9,7 +9,7 @@ import java.net.URLConnection;
 import java.util.HashMap;
 import java.util.Set;
 
-import jira.For.Android.NaSzybkiegoInterfacePatrzZadanieJFA257;
+import jira.For.Android.IconUrlProvider;
 import jira.For.Android.DataTypes.IssueType;
 import jira.For.Android.DataTypes.Priority;
 import jira.For.Android.DataTypes.Status;
@@ -111,7 +111,7 @@ public class ImagesCacher {
 
 			if (mapaOUT.containsKey(id) == false) {
 				System.out.println("Nie mam id:" + id);
-				urlOfIcon = ((NaSzybkiegoInterfacePatrzZadanieJFA257) mapaIN
+				urlOfIcon = ((IconUrlProvider) mapaIN
 				        .get(id)).getIcon();
 				url = new URL(urlOfIcon);
 				connection = url.openConnection();
