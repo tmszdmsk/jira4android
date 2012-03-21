@@ -1,11 +1,14 @@
 package jira.For.Android.Connector;
 
+import java.io.IOException;
 import java.util.Vector;
 
 import jira.For.Android.DataTypes.Filter;
+import jira.For.Android.RemoteExceptions.RemoteException;
 
 import org.ksoap2.serialization.SoapObject;
 import org.ksoap2.serialization.SoapSerializationEnvelope;
+import org.xmlpull.v1.XmlPullParserException;
 
 class ConnectorFilters {
 
@@ -15,7 +18,7 @@ class ConnectorFilters {
 		connector = Connector.getInstance();
 	}
 
-	Filter[] jiraGetFilters() throws Exception {
+	Filter[] jiraGetFilters() throws IOException, XmlPullParserException, RemoteException {
 
 		SoapObject getFavouriteFilters = new SoapObject(
 		        connector.getNameSpace(), "getFavouriteFilters");

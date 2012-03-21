@@ -13,6 +13,7 @@ import org.ksoap2.serialization.SoapSerializationEnvelope;
 import org.xmlpull.v1.XmlPullParserException;
 
 import android.util.Log;
+import jira.For.Android.RemoteExceptions.RemoteException;
 
 class ConnectorWorkLog {
 
@@ -37,7 +38,7 @@ class ConnectorWorkLog {
 		
 	}
 	
-	private synchronized List<WorkLog> downloadFromServer(SoapObject getWorklogs) throws Exception {
+	private synchronized List<WorkLog> downloadFromServer(SoapObject getWorklogs) throws IOException, XmlPullParserException, RemoteException {
 		
 		SoapSerializationEnvelope envelope = connector
 		        .getResponseFromServer(getWorklogs);

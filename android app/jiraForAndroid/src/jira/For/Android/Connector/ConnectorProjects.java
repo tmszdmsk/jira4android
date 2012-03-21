@@ -1,11 +1,14 @@
 package jira.For.Android.Connector;
 
+import java.io.IOException;
 import java.util.Vector;
 
 import jira.For.Android.DataTypes.Project;
+import jira.For.Android.RemoteExceptions.RemoteException;
 
 import org.ksoap2.serialization.SoapObject;
 import org.ksoap2.serialization.SoapSerializationEnvelope;
+import org.xmlpull.v1.XmlPullParserException;
 
 class ConnectorProjects {
 
@@ -17,7 +20,7 @@ class ConnectorProjects {
 		connector = Connector.getInstance();
 	}
 
-	Project[] jiraGetProjects(boolean downloadAvatars) throws Exception {
+	Project[] jiraGetProjects(boolean downloadAvatars) throws IOException, XmlPullParserException, RemoteException {
 
 		SoapObject getProjects = new SoapObject(connector.getNameSpace(),
 		        "getProjectsNoSchemes");
@@ -55,7 +58,7 @@ class ConnectorProjects {
 		return projects;
 	}
 
-	void jiraGetProjectAvatar(Project project) throws Exception {
+	void jiraGetProjectAvatar(Project project) throws IOException, XmlPullParserException, RemoteException {
 
 		SoapObject getAvatar = new SoapObject(connector.getNameSpace(),
 		        "getProjectAvatar");

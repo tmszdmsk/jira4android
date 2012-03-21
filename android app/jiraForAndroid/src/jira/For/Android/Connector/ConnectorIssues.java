@@ -4,6 +4,7 @@ import java.io.IOException;
 import java.util.Vector;
 
 import jira.For.Android.DataTypes.Issue;
+import jira.For.Android.RemoteExceptions.RemoteException;
 
 import org.ksoap2.serialization.SoapObject;
 import org.ksoap2.serialization.SoapSerializationEnvelope;
@@ -50,7 +51,7 @@ class ConnectorIssues {
 		return downloadFromServer(getIssuesFromFilter);
 	}
 
-	private Issue[] downloadFromServer(SoapObject getIssues) throws Exception {
+	private Issue[] downloadFromServer(SoapObject getIssues) throws IOException, XmlPullParserException, RemoteException {
 
 		SoapSerializationEnvelope envelope = connector
 		        .getResponseFromServer(getIssues);
