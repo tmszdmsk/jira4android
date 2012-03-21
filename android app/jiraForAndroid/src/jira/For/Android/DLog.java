@@ -19,12 +19,4 @@ public class DLog {
 	public static void e(String TAG, String message) {
 		Log.e(TAG, message);
 	}
-
-	public static void wtf(String message) {
-		Log.wtf("jira_for_android", message);
-	}
-
-	public static void wtf(String TAG, String message) {
-		Log.wtf(TAG, message);
-	}
 }
