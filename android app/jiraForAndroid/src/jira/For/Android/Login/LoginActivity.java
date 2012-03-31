@@ -302,9 +302,13 @@ public class LoginActivity extends Activity {
 			SharedPreferences settings = getSharedPreferences(
 			        PreferenceKeyHolder.PREFERENCE_SETTINGS_USER_DATA,
 			        MODE_PRIVATE);
+			
+			// Get content pf "Accept all SSL connections" checkbox
+			boolean acceptAllSSL = ((CheckBox)findViewById(R.id.allow_allssl)).isChecked(); 
+			
 			// Execution of new thread for login
 			thread = new LoginThread(this, settings, url, usr, pas, username,
-			        password, urlAddress, buttonLogin, spinner);
+			        password, urlAddress, buttonLogin, spinner, acceptAllSSL);
 			thread.execute();
 		}
 	}
@@ -323,15 +327,17 @@ public class LoginActivity extends Activity {
 		// Regular expression for URL
 		String regex = "^[^http://|https://][-a-zA-Z0-9+&@#/%?=~_|!:,.;]*[-a-zA-Z0-9+&@#/%=~_|]";
 
-		// Checking the input from EditText
-		Pattern pattern = Pattern.compile(regex);
-		Matcher matcher = pattern.matcher(str);
-		// Don't match and contain "/" on the last position
-		if (!matcher.matches() || str.charAt(str.length() - 1) == '/') {
-			// If doesn't suit
-			DLog.i("LoginActivity", "getUrlAddress() <--- The URL is invalid!");
-			return null;
-		}
+// [TT] Pattern matching does'nt work for my URL --> removed
+		
+//		// Checking the input from EditText
+//		Pattern pattern = Pattern.compile(regex);
+//		Matcher matcher = pattern.matcher(str);
+//		// Don't match and contain "/" on the last position
+//		if (!matcher.matches() || str.charAt(str.length() - 1) == '/') {
+//			// If doesn't suit
+//			DLog.i("LoginActivity", "getUrlAddress() <--- The URL is invalid!");
+//			return null;
+//		}
 		return str;
 	}
 

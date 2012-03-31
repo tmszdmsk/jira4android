@@ -88,6 +88,8 @@
                 android:singleLine="true"
                 android:visibility="visible" />
 
+            <!-- Login button -->
+
             <CheckBox
                 android:id="@+id/login_checkbox"
                 android:layout_width="140dp"
@@ -101,17 +103,31 @@
                 android:textColor="@color/black_font"
                 android:visibility="visible" />
 
-            <!-- Login button -->
+            <CheckBox
+                android:id="@+id/allow_allssl"
+                android:layout_width="140dp"
+                android:layout_height="35dp"
+                android:layout_alignParentRight="true"
+                android:layout_below="@+id/login_password_EditText"
+                android:checked="false"
+                android:hint="@string/if_you_check_this_field_the_user_and_password_will_be_saved_and_log_in_will_be_automaticly"
+                android:text="@string/allow_allssl"
+                android:textAppearance="?android:attr/textAppearanceSmall"
+                android:textColor="@color/black_font"
+                android:visibility="visible" />
 
             <Button
                 android:id="@+id/login_login_Button"
                 android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
+                android:layout_alignParentLeft="true"
                 android:layout_below="@+id/login_checkbox"
-                android:layout_marginTop="25dp"
+                android:layout_marginTop="17dp"
                 android:text="@string/login_login_Button"
                 android:visibility="visible" />
+
         </RelativeLayout>
+
     </LinearLayout>
 
 </ScrollView>

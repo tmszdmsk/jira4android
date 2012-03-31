@@ -179,5 +179,6 @@
     <string name="help_button">Close</string>
     <string name="item_http">http://</string>
     <string name="item_https">https://</string>
+    <string name="allow_allssl">Accept all SSL connections</string>
 
 </resources>
