@@ -56,6 +56,7 @@ public final class Connector {
     private ConnectorPriority connectorPriority;
     private ConnectorStatus connectorStatus;
     private String jiraUrl, username, password, url;
+    private boolean acceptAllSSL;
     private HashMap<String, User> users;
     private ImagesCacher imagesCacher;
     public HashMap<String, String> issuesTypesNames = new HashMap<String, String>();
@@ -160,14 +161,16 @@ public final class Connector {
      * @throws Exception
      */
     public boolean jiraLogin(String username, String password, String jiraUrl,
-            boolean isHttps) throws IOException, XmlPullParserException, RemoteException {
+            boolean isHttps, boolean acceptAllSSLConnections) throws IOException, XmlPullParserException, RemoteException {
 
         // Dodajemy adres dokumentu WSDL który zawiera definicje metod do
         // komunikacji z jirą
         this.jiraUrl = jiraUrl + wsdl;
         Log.d(this.toString(), "Https is: " + isHttps);
         if (isHttps) {
-            transportSe = getHttpsTransportSe(jiraUrl, wsdl);
+            this.acceptAllSSL = acceptAllSSLConnections;
+        	if (this.acceptAllSSL == true) ConnectorFakeTrustManager.allowAllSSL();
+        	transportSe = getHttpsTransportSe(jiraUrl, wsdl);
         } else {
             transportSe = getHttpTransportSe();
 
@@ -544,7 +547,7 @@ public final class Connector {
             if (message.contains("session timed out")) {
                 DLog.i("Connector",
                         "I must reconnect probably token it out of date");
-                jiraLogin(this.username, this.password, this.url, true);
+                jiraLogin(this.username, this.password, this.url, true, this.acceptAllSSL);
 
                 if (soapObject.hasProperty("token")) {
                     soapObject.getProperty(0);// Mam nadzieje ,że zawsze jest
