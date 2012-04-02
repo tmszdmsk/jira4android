@@ -11,21 +11,25 @@ import org.ksoap2.serialization.SoapObject;
 import org.ksoap2.serialization.SoapSerializationEnvelope;
 import org.xmlpull.v1.XmlPullParserException;
 
+import com.jira4android.connectors.KSoapExecutor;
+import com.jira4android.exceptions.AuthenticationException;
+import com.jira4android.exceptions.AuthorizationException;
+import com.jira4android.exceptions.CommunicationException;
+
 class ConnectorIssueTypes {
 
-    private Connector connector;
+	private Connector connector;
 
-    public ConnectorIssueTypes() {
-        connector = Connector.getInstance();
-    }
+	public ConnectorIssueTypes() {
+		connector = Connector.getInstance();
+	}
 
-    HashMap<String, IssueType> jiraGetIssueTypes() throws IOException,
+	HashMap<String, IssueType> jiraGetIssueTypes() throws IOException,
             XmlPullParserException, 
             RemoteException {
 
-        SoapObject getIssueTypes = new SoapObject(connector.getNameSpace(),
-                "getIssueTypes");
-        getIssueTypes.addProperty("token", connector.getToken());
+        SoapObject getIssueTypes = SoapObjectBuilder.start().withMethod("getIssueTypes").
+        		withProperty("token", connector.getToken()).build();
 
         SoapObject getSubTaskIssueTypes = new SoapObject(
                 connector.getNameSpace(), "getSubTaskIssueTypes");
@@ -39,31 +43,45 @@ class ConnectorIssueTypes {
 
     }
 
-    private HashMap<String, IssueType> downloadFromServer(
-            SoapObject getIssueTypes) throws IOException,
-            XmlPullParserException,
-            RemoteException {
+	private HashMap<String, IssueType> downloadFromServer(
+	        SoapObject getIssueTypes) throws IOException,
+	        XmlPullParserException, RemoteException {
 
-        SoapSerializationEnvelope envelope = connector.getResponseFromServer(getIssueTypes);
-
-        Vector<SoapObject> vc = connector.getSoapObjectsFromResponse(envelope);
-        if (vc == null) {
-            return null;
+		KSoapExecutor soap = new KSoapExecutor();
+		Vector<SoapObject> vc=null;
+        try {
+	        vc = soap.execute(getIssueTypes, Connector.instanceURL, Vector.class);
+        } catch (CommunicationException e) {
+	        // TODO Auto-generated catch block
+	        e.printStackTrace();
+        } catch (AuthorizationException e) {
+	        // TODO Auto-generated catch block
+	        e.printStackTrace();
+        } catch (AuthenticationException e) {
+	        // TODO Auto-generated catch block
+	        e.printStackTrace();
         }
+		if (vc == null) {
+			return null;
+		}
 
-        HashMap<String, IssueType> issueTypes = new HashMap<String, IssueType>();
+		HashMap<String, IssueType> issueTypes = new HashMap<String, IssueType>();
 
-        SoapObject p;// Temporary variable!
-        String tmp;
-        for (int i = 0; i < vc.size(); ++i) {
-            p = vc.get(i);
+		SoapObject p;// Temporary variable!
+		String tmp;
+		for (int i = 0; i < vc.size(); ++i) {
+			p = vc.get(i);
 
-            issueTypes.put(
-                    tmp = p.getPropertySafelyAsString("id"),
-                    new IssueType(tmp, p.getPropertySafelyAsString("name"), p.getPropertySafelyAsString("description"), p.getPropertySafelyAsString("icon"), Boolean.parseBoolean(p.getPropertySafelyAsString("subTask"))));
-        }
+			issueTypes.put(
+			        tmp = p.getPropertySafelyAsString("id"),
+			        new IssueType(tmp, p.getPropertySafelyAsString("name"), p
+			                .getPropertySafelyAsString("description"), p
+			                .getPropertySafelyAsString("icon"), Boolean
+			                .parseBoolean(p
+			                        .getPropertySafelyAsString("subTask"))));
+		}
 
-        return issueTypes;
+		return issueTypes;
 
-    }
+	}
 }

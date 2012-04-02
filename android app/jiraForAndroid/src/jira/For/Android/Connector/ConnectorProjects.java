@@ -10,9 +10,15 @@ import org.ksoap2.serialization.SoapObject;
 import org.ksoap2.serialization.SoapSerializationEnvelope;
 import org.xmlpull.v1.XmlPullParserException;
 
+import com.jira4android.connectors.KSoapExecutor;
+import com.jira4android.exceptions.AuthenticationException;
+import com.jira4android.exceptions.AuthorizationException;
+import com.jira4android.exceptions.CommunicationException;
+
 class ConnectorProjects {
 
 	private Connector connector;
+	private KSoapExecutor soap = new KSoapExecutor();
 
 	// Powyżej jest envelope bo będziemy wyciągać image itp do projektów
 
@@ -20,16 +26,15 @@ class ConnectorProjects {
 		connector = Connector.getInstance();
 	}
 
-	Project[] jiraGetProjects(boolean downloadAvatars) throws IOException, XmlPullParserException, RemoteException {
+	Project[] jiraGetProjects(boolean downloadAvatars) throws CommunicationException, AuthorizationException, AuthenticationException{
 
 		SoapObject getProjects = new SoapObject(connector.getNameSpace(),
 		        "getProjectsNoSchemes");
 		getProjects.addProperty("token", connector.getToken());
 
-		SoapSerializationEnvelope envelope = connector
-		        .getResponseFromServer(getProjects);
+	
 
-		Vector<SoapObject> vc = connector.getSoapObjectsFromResponse(envelope);
+		Vector<SoapObject> vc = soap.execute(getProjects, connector.instanceURL, Vector.class);
 		if (vc == null) return null;
 
 		Project[] projects = new Project[vc.size()];
@@ -58,17 +63,16 @@ class ConnectorProjects {
 		return projects;
 	}
 
-	void jiraGetProjectAvatar(Project project) throws IOException, XmlPullParserException, RemoteException {
+	void jiraGetProjectAvatar(Project project) throws CommunicationException, AuthorizationException, AuthenticationException{
 
 		SoapObject getAvatar = new SoapObject(connector.getNameSpace(),
 		        "getProjectAvatar");
 		getAvatar.addProperty("token", connector.getToken());
 		getAvatar.addProperty("projectKey", project.getKey());
 
-		SoapSerializationEnvelope envelope = connector
-		        .getResponseFromServer(getAvatar);
 
-		SoapObject body = (SoapObject) envelope.getResponse();
+
+		SoapObject body =  soap.execute(getAvatar, connector.instanceURL,SoapObject.class);
 
 		// TODO Trzeba sprawdzić czy rysunek nie jest tym rysunkiem standardowym
 		// albo czy już go nie mamy w pamięci ;) np spr pole id lkub inne info

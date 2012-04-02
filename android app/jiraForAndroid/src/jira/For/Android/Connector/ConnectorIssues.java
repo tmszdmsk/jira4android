@@ -10,18 +10,22 @@ import org.ksoap2.serialization.SoapObject;
 import org.ksoap2.serialization.SoapSerializationEnvelope;
 import org.xmlpull.v1.XmlPullParserException;
 
+import com.jira4android.connectors.KSoapExecutor;
+import com.jira4android.exceptions.AuthenticationException;
+import com.jira4android.exceptions.AuthorizationException;
+import com.jira4android.exceptions.CommunicationException;
+
 class ConnectorIssues {
 
 	private Connector connector;
-
+	private KSoapExecutor soap = new KSoapExecutor();
 	public ConnectorIssues() {
 		connector = Connector.getInstance();
 	}
 
-	Issue[] jiraGetIssues(String query, int howMuch) throws IOException,
-	        XmlPullParserException, Exception {
+	Issue[] jiraGetIssues(String query, int howMuch) throws CommunicationException, AuthorizationException, AuthenticationException {
 
-		if (query == null || howMuch < 0) throw new Exception(
+		if (query == null || howMuch < 0) throw new IllegalArgumentException(
 		        "Bad arguments\nQuery:" + query + " howMuch:" + howMuch);
 
 		SoapObject getIssues = new SoapObject(connector.getNameSpace(),
@@ -34,10 +38,9 @@ class ConnectorIssues {
 	}
 
 	Issue[] jiraGetIssuesFromFilterWithLimit(String filterId, int offSet,
-	        int maxNumResults) throws IOException, XmlPullParserException,
-	        Exception {
+	        int maxNumResults) throws CommunicationException, AuthorizationException, AuthenticationException {
 
-		if (filterId == null || offSet < 0 || maxNumResults < 0) throw new Exception(
+		if (filterId == null || offSet < 0 || maxNumResults < 0) throw new IllegalArgumentException(
 		        "Wrong arguments\nfilterId:" + filterId + " offSet:" + offSet
 		                + " maxNumResults:" + maxNumResults);
 
@@ -51,12 +54,10 @@ class ConnectorIssues {
 		return downloadFromServer(getIssuesFromFilter);
 	}
 
-	private Issue[] downloadFromServer(SoapObject getIssues) throws IOException, XmlPullParserException, RemoteException {
+	private Issue[] downloadFromServer(SoapObject getIssues) throws CommunicationException, AuthorizationException, AuthenticationException  {
 
-		SoapSerializationEnvelope envelope = connector
-		        .getResponseFromServer(getIssues);
 
-		Vector<SoapObject> vc = connector.getSoapObjectsFromResponse(envelope);
+		Vector<SoapObject> vc = soap.execute(getIssues, connector.instanceURL, Vector.class);
 		if (vc == null) return null;
 
 		Issue[] issues = new Issue[vc.size()];

@@ -3,11 +3,16 @@ package jira.For.Android.Login;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+import com.google.inject.Inject;
+
+import roboguice.activity.RoboActivity;
+
 import jira.For.Android.DLog;
 import jira.For.Android.DefaultPreference;
 import jira.For.Android.PreferenceKeyHolder;
 import jira.For.Android.R;
 import jira.For.Android.Connector.Connector;
+import jira.For.Android.Connector.ConnectorUser;
 import jira.For.Android.Feedback.FeedbackActivity;
 import jira.For.Android.Help.HTMLDialog;
 import android.app.Activity;
@@ -35,7 +40,7 @@ import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
-public class LoginActivity extends Activity {
+public class LoginActivity extends RoboActivity {
 
 	// For putExtra
 	public static final String pls_do_not_login_me = "pls_do_not_login_me";
@@ -303,12 +308,9 @@ public class LoginActivity extends Activity {
 			        PreferenceKeyHolder.PREFERENCE_SETTINGS_USER_DATA,
 			        MODE_PRIVATE);
 			
-			// Get content pf "Accept all SSL connections" checkbox
-			boolean acceptAllSSL = ((CheckBox)findViewById(R.id.allow_allssl)).isChecked(); 
-			
 			// Execution of new thread for login
 			thread = new LoginThread(this, settings, url, usr, pas, username,
-			        password, urlAddress, buttonLogin, spinner, acceptAllSSL);
+			        password, urlAddress, buttonLogin, spinner);
 			thread.execute();
 		}
 	}

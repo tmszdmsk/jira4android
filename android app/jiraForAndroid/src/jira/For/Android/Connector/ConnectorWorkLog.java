@@ -12,13 +12,18 @@ import org.ksoap2.serialization.SoapObject;
 import org.ksoap2.serialization.SoapSerializationEnvelope;
 import org.xmlpull.v1.XmlPullParserException;
 
+import com.jira4android.connectors.KSoapExecutor;
+import com.jira4android.exceptions.AuthenticationException;
+import com.jira4android.exceptions.AuthorizationException;
+import com.jira4android.exceptions.CommunicationException;
+
 import android.util.Log;
 import jira.For.Android.RemoteExceptions.RemoteException;
 
 class ConnectorWorkLog {
 
 	private Connector connector;
-
+	private KSoapExecutor soap = new KSoapExecutor();
 	ConnectorWorkLog() {
 		connector = Connector.getInstance();
 	}
@@ -38,12 +43,10 @@ class ConnectorWorkLog {
 		
 	}
 	
-	private synchronized List<WorkLog> downloadFromServer(SoapObject getWorklogs) throws IOException, XmlPullParserException, RemoteException {
+	private synchronized List<WorkLog> downloadFromServer(SoapObject getWorklogs) throws CommunicationException, AuthorizationException, AuthenticationException {
 		
-		SoapSerializationEnvelope envelope = connector
-		        .getResponseFromServer(getWorklogs);
 
-		Vector<SoapObject> vc = connector.getSoapObjectsFromResponse(envelope);
+		Vector<SoapObject> vc = soap.execute(getWorklogs, connector.instanceURL, Vector.class);
 		if (vc == null) return null;
 		Log.e("worklogi", Integer.toString(vc.size()));
 		List<WorkLog> worklogs = new ArrayList<WorkLog>();

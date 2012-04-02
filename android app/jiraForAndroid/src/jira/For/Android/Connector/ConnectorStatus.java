@@ -12,17 +12,20 @@ import org.ksoap2.serialization.SoapObject;
 import org.ksoap2.serialization.SoapSerializationEnvelope;
 import org.xmlpull.v1.XmlPullParserException;
 
+import com.jira4android.connectors.KSoapExecutor;
+import com.jira4android.exceptions.AuthenticationException;
+import com.jira4android.exceptions.AuthorizationException;
+import com.jira4android.exceptions.CommunicationException;
+
 class ConnectorStatus {
 
     private Connector connector;
-
+    private KSoapExecutor soap = new KSoapExecutor();
     ConnectorStatus() {
         connector = Connector.getInstance();
     }
 
-    HashMap<String, Status> jiraGetStatuses() throws IOException,
-            XmlPullParserException, 
-            RemoteException {
+    HashMap<String, Status> jiraGetStatuses() throws CommunicationException, AuthorizationException, AuthenticationException {
 
         DLog.i("status", "jestem w connector status");
 
@@ -35,13 +38,10 @@ class ConnectorStatus {
     }
 
     private HashMap<String, Status> downloadFromServer(
-            SoapObject getPriorities) throws IOException,
-            XmlPullParserException, 
-            RemoteException {
+            SoapObject getPriorities) throws CommunicationException, AuthorizationException, AuthenticationException {
 
-        SoapSerializationEnvelope envelope = connector.getResponseFromServer(getPriorities);
 
-        Vector<SoapObject> vc = connector.getSoapObjectsFromResponse(envelope);
+        Vector<SoapObject> vc = soap.execute(getPriorities, connector.instanceURL, Vector.class);
         if (vc == null) {
             return null;
         }

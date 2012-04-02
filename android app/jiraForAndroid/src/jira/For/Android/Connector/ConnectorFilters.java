@@ -10,24 +10,26 @@ import org.ksoap2.serialization.SoapObject;
 import org.ksoap2.serialization.SoapSerializationEnvelope;
 import org.xmlpull.v1.XmlPullParserException;
 
+import com.jira4android.connectors.KSoapExecutor;
+import com.jira4android.exceptions.AuthenticationException;
+import com.jira4android.exceptions.AuthorizationException;
+import com.jira4android.exceptions.CommunicationException;
+
 class ConnectorFilters {
 
 	private Connector connector;
-
+	private KSoapExecutor soap = new KSoapExecutor();
 	ConnectorFilters() {
 		connector = Connector.getInstance();
 	}
 
-	Filter[] jiraGetFilters() throws IOException, XmlPullParserException, RemoteException {
+	Filter[] jiraGetFilters() throws CommunicationException, AuthorizationException, AuthenticationException{
 
 		SoapObject getFavouriteFilters = new SoapObject(
 		        connector.getNameSpace(), "getFavouriteFilters");
 		getFavouriteFilters.addProperty("token", connector.getToken());
 
-		SoapSerializationEnvelope envelope = connector
-		        .getResponseFromServer(getFavouriteFilters);
-
-		Vector<SoapObject> vc = connector.getSoapObjectsFromResponse(envelope);
+		Vector<SoapObject> vc = soap.execute(getFavouriteFilters, connector.instanceURL, Vector.class);
 		if (vc == null) return null;
 
 		Filter[] filters = new Filter[vc.size()];

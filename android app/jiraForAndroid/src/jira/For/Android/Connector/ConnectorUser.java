@@ -8,15 +8,21 @@ import org.ksoap2.serialization.SoapObject;
 import org.ksoap2.serialization.SoapSerializationEnvelope;
 import org.xmlpull.v1.XmlPullParserException;
 
+import com.jira4android.connectors.KSoapExecutor;
+import com.jira4android.exceptions.AuthenticationException;
+import com.jira4android.exceptions.AuthorizationException;
+import com.jira4android.exceptions.CommunicationException;
+
 public class ConnectorUser {
 
     private Connector connector;
+    private KSoapExecutor soap = new KSoapExecutor();
 
     public ConnectorUser() {
         connector = Connector.getInstance();
     }
 
-    User jiraGetUser(String username) throws IOException, XmlPullParserException, RemoteException {
+    User jiraGetUser(String username) throws CommunicationException, AuthorizationException, AuthenticationException {
 
         if (username == null) {
             throw new IllegalArgumentException("Username cannot be null");
@@ -26,9 +32,7 @@ public class ConnectorUser {
         getUser.addProperty("token", connector.getToken());
         getUser.addProperty("username", username);
 
-        SoapSerializationEnvelope envelope = connector.getResponseFromServer(getUser);
-
-        SoapObject body = (SoapObject) envelope.getResponse();
+        SoapObject body = soap.execute(getUser, connector.instanceURL, SoapObject.class);
 
         System.out.println("Mam usera: " + body);
 

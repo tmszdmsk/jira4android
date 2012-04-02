@@ -14,15 +14,21 @@ import org.ksoap2.serialization.SoapObject;
 import org.ksoap2.serialization.SoapSerializationEnvelope;
 import org.xmlpull.v1.XmlPullParserException;
 
+import com.jira4android.connectors.KSoapExecutor;
+import com.jira4android.exceptions.AuthenticationException;
+import com.jira4android.exceptions.AuthorizationException;
+import com.jira4android.exceptions.CommunicationException;
+
 class ConnectorComments {
 
     private Connector connector;
+    private KSoapExecutor soap = new KSoapExecutor();
 
     ConnectorComments() {
         connector = Connector.getInstance();
     }
 
-    synchronized List<Comment> jiraGetComments(String issueKey) throws IOException, XmlPullParserException, RemoteException, Exception {
+    synchronized List<Comment> jiraGetComments(String issueKey) throws CommunicationException, AuthorizationException, AuthenticationException{
         if (issueKey == null) {
             throw new IllegalArgumentException("issueKey cannot be null");
         }
@@ -32,9 +38,8 @@ class ConnectorComments {
         getComments.addProperty("token", connector.getToken());
         getComments.addProperty("issueKey", issueKey);
 
-        SoapSerializationEnvelope envelope = connector.getResponseFromServer(getComments);
 
-        Vector<SoapObject> vc = connector.getSoapObjectsFromResponse(envelope);
+        Vector<SoapObject> vc = soap.execute(getComments, connector.instanceURL, Vector.class);
         if (vc == null) {
             return null;
         }
@@ -73,16 +78,14 @@ class ConnectorComments {
      *
      * @param message
      * @param issueKey
-     * @throws Exception
-     * @throws RemotePermissionException
-     * @throws RemoteAuthenticationException
-     * @throws RemoteException
+     * @throws AuthenticationException 
+     * @throws AuthorizationException 
+     * @throws CommunicationException 
      */
-    void jiraAddComment(String issueKey, Comment comment) throws IOException,
-            XmlPullParserException, Exception {
+    void jiraAddComment(String issueKey, Comment comment) throws CommunicationException, AuthorizationException, AuthenticationException {
 
         if (comment == null || issueKey == null) {
-            throw new Exception(
+            throw new IllegalArgumentException(
                     "Wrong arguments\ncomment: " + comment.toString()
                     + "\nissueKey: " + issueKey);
         }
@@ -92,14 +95,7 @@ class ConnectorComments {
 
 
 
-        // remoteComment.addProperty("author", comment.getAuthorName());
         remoteComment.addProperty("body", comment.getBody());
-        // remoteComment.addProperty("created", "2012-01-06T08:57:36.507Z");
-        // remoteComment.addProperty("groupLevel", null);
-        // remoteComment.addProperty("id", "-1");
-        // remoteComment.addProperty("roleLevel", null);
-        // remoteComment.addProperty("updateAuthor", comment.getAuthorName());
-        // remoteComment.addProperty("updated", "2012-01-06T08:57:36.507Z");
 
         SoapObject addComment = new SoapObject(connector.getNameSpace(),
                 "addComment");
@@ -108,7 +104,6 @@ class ConnectorComments {
 
         addComment.addSoapObject(remoteComment);
 
-        connector.getResponseFromServer(addComment);
-        // TODO Sprawdzić czy dodaliśmy komentarz?
+        soap.execute(addComment, connector.instanceURL);
     }
 }

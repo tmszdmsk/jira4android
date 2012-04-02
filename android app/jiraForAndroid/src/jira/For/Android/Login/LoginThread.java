@@ -32,12 +32,11 @@ class LoginThread extends Thread<Boolean> {
 	private final Spinner spinner;
 	private LoginActivity activityLogin;
 	
-	private boolean acceptAllSSLConnections;
 	
 	public LoginThread(LoginActivity activity, SharedPreferences settings,
 	                   String url, String usr, String pas, EditText username,
 	                   EditText password, EditText urlAddress,
-	                   Button buttonLogin, Spinner spinner, boolean acceptAllSSL) {
+	                   Button buttonLogin, Spinner spinner) {
 
 		super(activity);
 		activityLogin = (LoginActivity) this.activity;
@@ -54,7 +53,6 @@ class LoginThread extends Thread<Boolean> {
 		this.usr = usr;
 		this.settings = settings;
 		
-		this.acceptAllSSLConnections = acceptAllSSL;
 	}
 
 	private boolean showFailInformationGUI(Exception ex) {
@@ -120,8 +118,6 @@ class LoginThread extends Thread<Boolean> {
 		view.findViewById(R.id.login_checkbox)
 		        .setVisibility(TextView.INVISIBLE);
 
-		view.findViewById(R.id.allow_allssl).setVisibility(CheckBox.INVISIBLE);
-		
 		view.findViewById(R.id.data_is_loading).setVisibility(TextView.VISIBLE);
 
 		view.findViewById(R.id.progress_bar).setVisibility(TextView.VISIBLE);
@@ -141,8 +137,7 @@ class LoginThread extends Thread<Boolean> {
 			        activityLogin.getResources().getStringArray(
 			                R.array.http_or_https)[spinner
 			                .getSelectedItemPosition()].equals(activityLogin
-			                .getString(R.string.item_https)),
-			        acceptAllSSLConnections);
+			                .getString(R.string.item_https)));
 			// Connector.getInstance().downloadIssueTypes();
 			// Connector.getInstance().downloadPriorities();
 		} catch (Exception e) {
@@ -195,7 +190,6 @@ class LoginThread extends Thread<Boolean> {
 		password.setVisibility(TextView.VISIBLE);
 		buttonLogin.setVisibility(TextView.VISIBLE);
 		view.findViewById(R.id.login_checkbox).setVisibility(TextView.VISIBLE);
-		view.findViewById(R.id.allow_allssl).setVisibility(CheckBox.VISIBLE);
 		
 	}
 
