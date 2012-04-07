@@ -1,5 +1,6 @@
 package jira.For.Android.Feedback;
 
+import jira.For.Android.GeneralActivity;
 import jira.For.Android.R;
 
 import org.acra.ErrorReporter;
@@ -12,7 +13,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
-public class FeedbackActivity extends Activity {
+public class FeedbackActivity extends GeneralActivity {
 
 	private EditText textWithFeedback;
 	private final String FEEDBACK = "feedback:";
@@ -40,6 +41,11 @@ public class FeedbackActivity extends Activity {
 
 			@Override
 			public void onClick(View v) {
+
+				googleAnalyticsTracker.trackEvent("Clicks", // Category
+				        "Button", // Action
+				        "send feedback", // Label
+				        1); // Value
 
 				ErrorReporter.getInstance().putCustomData(FEEDBACK,
 				        textWithFeedback.getText().toString());
