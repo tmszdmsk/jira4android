@@ -1,18 +1,22 @@
 package jira.For.Android.Feedback;
 
 import jira.For.Android.R;
+
+import org.acra.ErrorReporter;
+
 import android.app.Activity;
-import android.content.Intent;
 import android.os.Bundle;
-import android.provider.ContactsContract.CommonDataKinds.Email;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.Toast;
 
 public class FeedbackActivity extends Activity {
 
 	private EditText textWithFeedback;
+	private final String FEEDBACK = "feedback:";
+	FeedbackActivity feedbackActivity = this;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -28,7 +32,7 @@ public class FeedbackActivity extends Activity {
 
 			@Override
 			public void onClick(View v) {
-				finish();
+				onBackPressed();
 			}
 		});
 
@@ -36,17 +40,19 @@ public class FeedbackActivity extends Activity {
 
 			@Override
 			public void onClick(View v) {
-				Intent emailIntent = new Intent(
-				        android.content.Intent.ACTION_SEND);
-				emailIntent.setType("plain/text");
 
-				emailIntent.putExtra(android.content.Intent.EXTRA_EMAIL,
-				        getString(R.string.mailForFeedback));
-				emailIntent.putExtra(android.content.Intent.EXTRA_SUBJECT,
-				        "Jira4Android-Feedback");
-				emailIntent.putExtra(android.content.Intent.EXTRA_TEXT,
+				ErrorReporter.getInstance().putCustomData(FEEDBACK,
 				        textWithFeedback.getText().toString());
-				startActivity(Intent.createChooser(emailIntent, "Send e-mail."));
+				ErrorReporter.getInstance().handleSilentException(
+				        new Throwable("Feedback information"));
+
+				Toast.makeText(
+				        feedbackActivity,
+				        feedbackActivity
+				                .getString(R.string.thanks_for_feedback),
+				        Toast.LENGTH_SHORT).show();
+
+				finish();
 			}
 		});
 	}
