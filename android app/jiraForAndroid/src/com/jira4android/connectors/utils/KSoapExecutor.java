@@ -1,4 +1,4 @@
-package com.jira4android.connectors;
+package com.jira4android.connectors.utils;
 
 import java.io.IOException;
 import java.net.MalformedURLException;

@@ -1,35 +1,35 @@
 package jira.For.Android.Connector;
 
-import java.io.IOException;
 import java.util.Vector;
 
 import jira.For.Android.DataTypes.Filter;
-import jira.For.Android.RemoteExceptions.RemoteException;
 
 import org.ksoap2.serialization.SoapObject;
-import org.ksoap2.serialization.SoapSerializationEnvelope;
-import org.xmlpull.v1.XmlPullParserException;
 
-import com.jira4android.connectors.KSoapExecutor;
+import com.google.inject.Inject;
+import com.google.inject.Singleton;
+import com.jira4android.connectors.utils.KSoapExecutor;
+import com.jira4android.connectors.utils.SoapObjectBuilder;
 import com.jira4android.exceptions.AuthenticationException;
 import com.jira4android.exceptions.AuthorizationException;
 import com.jira4android.exceptions.CommunicationException;
+@Singleton
+public class ConnectorFilters {
 
-class ConnectorFilters {
-
+	@Inject
 	private Connector connector;
-	private KSoapExecutor soap = new KSoapExecutor();
-	ConnectorFilters() {
-		connector = Connector.getInstance();
-	}
+	@Inject
+	private KSoapExecutor soap;
 
-	Filter[] jiraGetFilters() throws CommunicationException, AuthorizationException, AuthenticationException{
+	Filter[] jiraGetFilters() throws CommunicationException,
+	        AuthorizationException, AuthenticationException {
 
-		SoapObject getFavouriteFilters = new SoapObject(
-		        connector.getNameSpace(), "getFavouriteFilters");
-		getFavouriteFilters.addProperty("token", connector.getToken());
+		SoapObject getFavouriteFilters = SoapObjectBuilder.start()
+		        .withMethod("getFavouriteFilters")
+		        .withProperty("token", connector.getToken()).build();
 
-		Vector<SoapObject> vc = soap.execute(getFavouriteFilters, connector.instanceURL, Vector.class);
+		Vector<SoapObject> vc = soap.execute(getFavouriteFilters,
+		        connector.instanceURL, Vector.class);
 		if (vc == null) return null;
 
 		Filter[] filters = new Filter[vc.size()];

@@ -11,7 +11,7 @@ import jira.For.Android.Help.HTMLDialog;
 import jira.For.Android.Login.LoginActivity;
 import jira.For.Android.ProjectList.ProjectListActivity;
 import jira.For.Android.TaskDetails.TaskDetailsActivity;
-import android.app.Activity;
+import roboguice.activity.RoboActivity;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
@@ -28,7 +28,9 @@ import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
 
-public class TaskListByJQLActivity extends Activity {
+import com.google.inject.Inject;
+
+public class TaskListByJQLActivity extends RoboActivity {
 
 	// Issue[] issues;
 	private TaskListByJQLActivity taskListByJQLACtivity;
@@ -45,6 +47,8 @@ public class TaskListByJQLActivity extends Activity {
 	private TaskJQLThread thread;
 	private Context ctx;
 	private ImageView refreshButton;
+	@Inject
+	private Connector connector;
 
 	/*
 	 * public int getIssuesSize() { return issues.size(); }
@@ -124,7 +128,7 @@ public class TaskListByJQLActivity extends Activity {
 		// getLayoutInflater().inflate(R.id.taskListByJQLActivityListView,
 		// null);
 		listView.setVisibility(View.VISIBLE);
-		listView.setAdapter(new MyAdapter(this, result, this));
+		listView.setAdapter(new MyAdapter(this, result, this, connector));
 
 		listView.setOnItemClickListener(new OnItemClickListener() {
 
@@ -181,7 +185,7 @@ public class TaskListByJQLActivity extends Activity {
 		});
 		refreshButton = (ImageView) findViewById(R.id.image_refresh);
 		// TODO Trzeba zaktualizować issues?
-		thread = new TaskJQLThread(filterId, query, this);
+		thread = new TaskJQLThread(filterId, query, this, connector);
 		thread.execute();
 		refreshButton.setOnClickListener(new OnClickListener() {
 
@@ -199,7 +203,7 @@ public class TaskListByJQLActivity extends Activity {
 				        .setVisibility(View.VISIBLE);
 
 				thread = new TaskJQLThread(filterId, query,
-				        taskListByJQLACtivity);
+				        taskListByJQLACtivity,connector);
 				thread.execute();
 
 			}
@@ -238,7 +242,7 @@ public class TaskListByJQLActivity extends Activity {
 				        intent.putExtra(LoginActivity.pls_do_not_login_me, true);
 				        startActivity(intent);
 				        finish();
-				        Connector.setInstanceNULL();
+				        connector.jiraLogout();
 				        System.out.println("ZROBILEM KUPE!!");
 				        return true;
 			        }

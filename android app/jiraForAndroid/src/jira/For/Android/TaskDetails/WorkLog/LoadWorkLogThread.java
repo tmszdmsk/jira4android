@@ -17,10 +17,12 @@ import jira.For.Android.TaskDetails.TaskDetailsActivity;
 public class LoadWorkLogThread extends Thread<List<WorkLog>> {
 
 	Issue task;
+	private final Connector connector;
 
-	public LoadWorkLogThread(View view, TaskDetailsActivity activity, Issue task) {
+	public LoadWorkLogThread(View view, TaskDetailsActivity activity, Issue task, Connector connector) {
 		super(view, activity);
 		this.task = task;
+		this.connector = connector;
 	}
 
 	protected synchronized void onPostExecute(List<WorkLog> result) {
@@ -43,7 +45,7 @@ public class LoadWorkLogThread extends Thread<List<WorkLog>> {
 	@Override
 	protected synchronized List<WorkLog> doInBackground(Void... params) {
 		try {
-	        return Connector.getInstance().getWorkLog(task.getKey());
+	        return connector.getWorkLog(task.getKey());
         } catch (IOException e) {
 	        // TODO Auto-generated catch block
 	        e.printStackTrace();

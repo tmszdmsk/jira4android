@@ -2,6 +2,7 @@ package jira.For.Android.Filters;
 
 import jira.For.Android.DLog;
 import jira.For.Android.R;
+import jira.For.Android.Connector.Connector;
 import jira.For.Android.DataTypes.Filter;
 import jira.For.Android.PagerView.ViewForPagerInterface;
 import jira.For.Android.TaskList.TaskListByJQLActivity;
@@ -17,8 +18,9 @@ import android.widget.TextView;
 
 class ViewsForFilters implements ViewForPagerInterface {
 
-	public ViewsForFilters(FiltersListActivity filtersListActivity, Context ctx) {
+	public ViewsForFilters(FiltersListActivity filtersListActivity, Context ctx, Connector connector) {
 
+		this.connector = connector;
 		DLog.i("JiraPagerAdapter",
 		        "Creating JiraPagerAdapter constructor <--- I'm here");
 		this.ctx = ctx;
@@ -59,6 +61,7 @@ class ViewsForFilters implements ViewForPagerInterface {
 	private String[] titles;
 	Filter[] filtersRemote;
 	Filter[] filtersLocal;
+	private Connector connector;
 
 	/*
 	 * final Filter[] filtersLocal = { new
@@ -115,7 +118,7 @@ class ViewsForFilters implements ViewForPagerInterface {
 			case 1:
 				// Page with remote filters
 				if (filtersRemote == null) new LoadRemoteFiltersThread(tmpview,
-				        filtersListActivity, this).execute();
+				        filtersListActivity, this, connector).execute();
 				else adapter = filtersRemoteList;
 			break;
 		}

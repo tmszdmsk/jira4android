@@ -12,12 +12,14 @@ public class TaskJQLThread extends Thread<Issue[]> {
 	String query, filterId;
 	private boolean isListDown;
 	ImageView refresh;
+	private final Connector connector;
 
 	public TaskJQLThread(String filterId, String query,
-	                     TaskListByJQLActivity taskListByJQLActivity) {
+	                     TaskListByJQLActivity taskListByJQLActivity, Connector connector) {
 		super(taskListByJQLActivity);
 		this.query = query;
 		this.filterId = filterId;
+		this.connector = connector;
 		refresh = taskListByJQLActivity.getRefreshButton();
 
 	}
@@ -105,12 +107,12 @@ public class TaskJQLThread extends Thread<Issue[]> {
 				((TaskListByJQLActivity) activity).setIsDownloading(true);
 				System.out.println("In doInBackground() of TaskJQLThread "
 				        + "\"" + query + "\"");
-				return Connector.getInstance().getIssuesByJQL(query,
+				return connector.getIssuesByJQL(query,
 				        TaskListByJQLActivity.TASKLIST_COUNT);
 			}
 			else if (filterId != null) {
 				((TaskListByJQLActivity) activity).setIsDownloading(true);
-				return Connector.getInstance().getIssuesFromFilterWithLimit(
+				return connector.getIssuesFromFilterWithLimit(
 				        filterId, 0, 30);
 			}
 			else {

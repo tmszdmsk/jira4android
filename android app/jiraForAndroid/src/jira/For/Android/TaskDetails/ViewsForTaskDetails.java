@@ -39,9 +39,11 @@ class ViewsForTaskDetails implements ViewForPagerInterface {
 	Issue task;
 	List<Comment> comments;
 	InputMethodManager imm;
+	private final Connector connector;
 
-	public ViewsForTaskDetails(Activity activity, Issue task) {
+	public ViewsForTaskDetails(Activity activity, Issue task, Connector connector) {
 		super();
+		this.connector = connector;
 		if (activity instanceof TaskDetailsActivity) this.activity = (TaskDetailsActivity) activity;
 		this.task = task;
 		imm = (InputMethodManager) activity
@@ -142,15 +144,15 @@ class ViewsForTaskDetails implements ViewForPagerInterface {
 
 		((TextView) view
 		        .findViewById(R.id.taskdetailsActivityDetailsTypeValueTextView))
-		        .setText(Connector.getInstance().getIssueType(task.getType()).getName());
+		        .setText(connector.getIssueType(task.getType()).getName());
 
 		((TextView) view
 		        .findViewById(R.id.taskdetailsActivityDetailsPriorityValueTextView))
-		        .setText(Connector.getInstance().getPriority(task.getPriority()).getName());
+		        .setText(connector.getPriority(task.getPriority()).getName());
 
 		((TextView) view
 		        .findViewById(R.id.taskdetailsActivityDetailsStatusValueTextView))
-		        .setText(Connector.getInstance().getStatus(task.getStatus()).getName());
+		        .setText(connector.getStatus(task.getStatus()).getName());
 
 		((TextView) view
 		        .findViewById(R.id.taskdetailsActivityDetailsResolutionValueTextView))
@@ -204,7 +206,7 @@ class ViewsForTaskDetails implements ViewForPagerInterface {
 	 */
 	private void setWorkLogInfo(View view) {
 		// TODO Auto-generated method stub
-		new LoadWorkLogThread(view, activity, task).execute();
+		new LoadWorkLogThread(view, activity, task, connector).execute();
 	}
 
 	/**
@@ -215,7 +217,7 @@ class ViewsForTaskDetails implements ViewForPagerInterface {
 	private void setCommentsInfo(View view) {
 		// Setting comments layout
 
-		new LoadCommentsThread(view, activity, task).execute();
+		new LoadCommentsThread(view, activity, task, connector).execute();
 
 		final Button buttonSendMessage = (Button) view
 		        .findViewById(R.id.button_send_comment);
@@ -262,13 +264,13 @@ class ViewsForTaskDetails implements ViewForPagerInterface {
 
 				System.out.println("Msg: " + msg);
 
-				Comment comment = new Comment(Connector.getInstance()
+				Comment comment = new Comment(connector
 				        .getThisUser(), msg, "null", "12345678", "null",
 				        "null",
 				        DataTypesMethods.dateToGMTString(date.getTime()),
 				        DataTypesMethods.dateToGMTString(date.getTime()));
 
-				new AddCommentThread(activity, comment, task.getKey())
+				new AddCommentThread(activity, comment, task.getKey(), connector)
 				        .execute();
 			}
 		});

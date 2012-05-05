@@ -4,6 +4,10 @@ import java.net.UnknownHostException;
 
 import javax.net.ssl.SSLException;
 
+import com.jira4android.exceptions.AuthenticationException;
+import com.jira4android.exceptions.AuthorizationException;
+import com.jira4android.exceptions.CommunicationException;
+
 import jira.For.Android.DLog;
 import jira.For.Android.PreferenceKeyHolder;
 import jira.For.Android.R;
@@ -31,14 +35,16 @@ class LoginThread extends Thread<Boolean> {
 	private Button buttonLogin;
 	private final Spinner spinner;
 	private LoginActivity activityLogin;
+	private final Connector connector;
 	
 	
 	public LoginThread(LoginActivity activity, SharedPreferences settings,
 	                   String url, String usr, String pas, EditText username,
 	                   EditText password, EditText urlAddress,
-	                   Button buttonLogin, Spinner spinner) {
+	                   Button buttonLogin, Spinner spinner, Connector connector) {
 
 		super(activity);
+		this.connector = connector;
 		activityLogin = (LoginActivity) this.activity;
 		this.spinner = spinner;
 		DLog.i("LoginActivity", "LoginTaskThread constructor <--- i'm here");
@@ -59,24 +65,19 @@ class LoginThread extends Thread<Boolean> {
 
 		// HINT
 		// com.atlassian.jira.rpc.exception.RemoteAuthenticationException
-		if (ex instanceof RemoteAuthenticationException) {
+		if (ex instanceof AuthenticationException) {
 			username.setError(activity
 			        .getString(R.string.login_toast_invalidUsername));
 			password.setError(activity
 			        .getString(R.string.login_toast_invalidPassword));
 			return true;
 		}
-		else if (ex instanceof RemotePermissionException) {
+		else if (ex instanceof AuthorizationException) {
 			username.setError(activity
 			        .getString(R.string.login_toast_permissionViolated));
 			return true;
 		}
-		else if (ex instanceof RemoteValidationException) {
-			username.setError(activity
-			        .getString(R.string.login_toast_validationFail));
-			return true;
-		}
-		else if (ex instanceof UnknownHostException) {
+		else if (ex instanceof CommunicationException) {
 			urlAddress.setError(activity.getString(R.string.unknown_host));
 			return true;
 		}
@@ -130,7 +131,7 @@ class LoginThread extends Thread<Boolean> {
 		boolean returnValue = false;
 		try {
 
-			returnValue = Connector.getInstance().jiraLogin(
+			returnValue = connector.jiraLogin(
 			        usr,
 			        pas.toString(),
 			        url,
@@ -151,7 +152,7 @@ class LoginThread extends Thread<Boolean> {
 		DLog.i("LoginActivity", "onPostExecute <--- i'm here");
 
 		if (loginSuccess.booleanValue()) {
-			Connector.getInstance().setIsConnected(true);
+			connector.setIsConnected(true);
 			// If CheckBox is checked we save our usr,pas and url to
 			// SharedPreference
 			saveUserDataToSharedPreferences();

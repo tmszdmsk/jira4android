@@ -1,43 +1,42 @@
 package jira.For.Android.Connector;
 
-import java.io.IOException;
 import jira.For.Android.DataTypes.User;
-import jira.For.Android.RemoteExceptions.RemoteException;
 
 import org.ksoap2.serialization.SoapObject;
-import org.ksoap2.serialization.SoapSerializationEnvelope;
-import org.xmlpull.v1.XmlPullParserException;
 
-import com.jira4android.connectors.KSoapExecutor;
+import com.google.inject.Inject;
+import com.google.inject.Singleton;
+import com.jira4android.connectors.utils.KSoapExecutor;
+import com.jira4android.connectors.utils.SoapObjectBuilder;
 import com.jira4android.exceptions.AuthenticationException;
 import com.jira4android.exceptions.AuthorizationException;
 import com.jira4android.exceptions.CommunicationException;
-
+@Singleton
 public class ConnectorUser {
 
-    private Connector connector;
-    private KSoapExecutor soap = new KSoapExecutor();
+	@Inject
+	private Connector connector;
+	@Inject
+	private KSoapExecutor soap;
 
-    public ConnectorUser() {
-        connector = Connector.getInstance();
-    }
+	User jiraGetUser(String username) throws CommunicationException,
+	        AuthorizationException, AuthenticationException {
 
-    User jiraGetUser(String username) throws CommunicationException, AuthorizationException, AuthenticationException {
+		if (username == null) {
+			throw new IllegalArgumentException("Username cannot be null");
+		}
 
-        if (username == null) {
-            throw new IllegalArgumentException("Username cannot be null");
-        }
+		SoapObject getUser = SoapObjectBuilder.start().withMethod("getUser")
+		        .withProperty("token", connector.getToken())
+		        .withProperty("username", username).build();
 
-        SoapObject getUser = new SoapObject(connector.getNameSpace(), "getUser");
-        getUser.addProperty("token", connector.getToken());
-        getUser.addProperty("username", username);
+		SoapObject body = soap.execute(getUser, connector.instanceURL,
+		        SoapObject.class);
 
-        SoapObject body = soap.execute(getUser, connector.instanceURL, SoapObject.class);
+		System.out.println("Mam usera: " + body);
 
-        System.out.println("Mam usera: " + body);
-
-        return new User(body.getPropertySafelyAsString("name"),
-                body.getPropertySafelyAsString("fullname"),
-                body.getPropertySafelyAsString("email"));
-    }
+		return new User(body.getPropertySafelyAsString("name"),
+		        body.getPropertySafelyAsString("fullname"),
+		        body.getPropertySafelyAsString("email"));
+	}
 }

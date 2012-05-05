@@ -1,6 +1,8 @@
-package jira.For.Android.Connector;
+package com.jira4android.connectors.utils;
 
+import java.util.ArrayList;
 import java.util.LinkedHashMap;
+import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
 
@@ -12,7 +14,8 @@ public class SoapObjectBuilder {
 	private static final String NAMESPACE = "com.jira4android";
 	
 	//don't change implementation, order of added properties needs to be kept
-	private Map<String, String> propertiesMap = new LinkedHashMap<String, String>();
+	private Map<String, Object> propertiesMap = new LinkedHashMap<String, Object>();
+	private List<SoapObject> soapObjects = new ArrayList<SoapObject>();
 	private String methodName;
 	
     private SoapObjectBuilder() {
@@ -34,11 +37,24 @@ public class SoapObjectBuilder {
 		return this;
 	}
 	
+	public SoapObjectBuilder withProperty(String key, Integer value){
+		propertiesMap.put(key, value);
+		return this;
+	}
+	
 	public SoapObject build(){
 		SoapObject result = new SoapObject(NAMESPACE, methodName);
-		for(Entry<String, String> entry : propertiesMap.entrySet()){
+		for(Entry<String, Object> entry : propertiesMap.entrySet()){
 			result.addProperty(entry.getKey(), entry.getValue());
+		}
+		for(SoapObject object : soapObjects){
+			result.addSoapObject(object);
 		}
 		return result;
 	}
+
+	public SoapObjectBuilder withSoapObject(SoapObject object) {
+	    soapObjects.add(object);
+	    return this;
+    }
 }

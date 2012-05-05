@@ -1,10 +1,11 @@
 package jira.For.Android.Connector;
 
+import java.io.IOException;
+import java.net.MalformedURLException;
+import java.net.URL;
 import java.util.HashMap;
 import java.util.List;
-import java.util.Vector;
 
-import jira.For.Android.ConnectorsModule;
 import jira.For.Android.DLog;
 import jira.For.Android.DataTypes.Comment;
 import jira.For.Android.DataTypes.Filter;
@@ -16,34 +17,24 @@ import jira.For.Android.DataTypes.Status;
 import jira.For.Android.DataTypes.User;
 import jira.For.Android.DataTypes.WorkLog;
 import jira.For.Android.ImagesCacher.ImagesCacher;
-import jira.For.Android.RemoteExceptions.RemoteAuthenticationException;
 import jira.For.Android.RemoteExceptions.RemoteException;
-import jira.For.Android.RemoteExceptions.RemotePermissionException;
-import jira.For.Android.RemoteExceptions.RemoteValidationException;
 
-import org.ksoap2.SoapFault;
-import org.ksoap2.serialization.SoapObject;
 import org.ksoap2.serialization.SoapSerializationEnvelope;
-import org.ksoap2.transport.HttpTransportSE;
-import org.ksoap2.transport.HttpsTransportSE;
 import org.ksoap2.transport.Transport;
 import org.xmlpull.v1.XmlPullParserException;
 
-import com.google.inject.Guice;
-import com.google.inject.Injector;
-import com.jira4android.connectors.AuthenthicationService;
-import com.jira4android.exceptions.AuthenticationException;
-import com.jira4android.exceptions.AuthorizationException;
-import com.jira4android.exceptions.CommunicationException;
+import roboguice.inject.ContextSingleton;
 
 import android.content.Context;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
-import android.util.Log;
-import java.io.IOException;
-import java.net.MalformedURLException;
-import java.net.URI;
-import java.net.URL;
+
+import com.google.inject.Inject;
+import com.google.inject.Singleton;
+import com.jira4android.connectors.AuthenthicationService;
+import com.jira4android.exceptions.AuthenticationException;
+import com.jira4android.exceptions.AuthorizationException;
+import com.jira4android.exceptions.CommunicationException;
 
 /*
  * Przykładowe dane do logowania: USERNAME: test.user PASSWORD test.password
@@ -53,51 +44,53 @@ import java.net.URL;
  * Connector is a Singleton and is responsible for all connections to jira
  * server getting projects,tasks etc
  */
+@Singleton
 public final class Connector {
 
-	public static  URL instanceURL;
+	public static URL instanceURL;
 	{
 		try {
-	        instanceURL = new URL("http://jira.wmi.amu.edu.pl");
-        } catch (MalformedURLException e) {
-	        // TODO Auto-generated catch block
-	        e.printStackTrace();
-        }
+			instanceURL = new URL("http://jira.wmi.amu.edu.pl");
+		} catch (MalformedURLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 	}
 	private static final int TIME_OUT = 50000;
 	private Transport transportSe;
 	private SoapSerializationEnvelope ENVELOPE;
+
+	@Inject
 	private ConnectorProjects connectorProjects;
+	@Inject
 	private ConnectorIssues connectorIssues;
+	@Inject
 	private ConnectorFilters connectorFilters;
+	@Inject
 	private ConnectorComments connectorComments;
+	@Inject
 	private ConnectorWorkLog connectorWorkLog;
+	@Inject
 	private ConnectorUser connectorUser;
+	@Inject
 	private ConnectorIssueTypes connectorIssueTypes;
+	@Inject
 	private ConnectorPriority connectorPriority;
+	@Inject
 	private ConnectorStatus connectorStatus;
+	@Inject
 	private AuthenthicationService authenthicationService = new AuthenthicationService();
-	private String jiraUrl, username, password, url;
-	private boolean acceptAllSSL;
-	private HashMap<String, User> users;
+	private String username;
+	private HashMap<String, User> users = new HashMap<String, User>();;
 	private ImagesCacher imagesCacher;
 	public HashMap<String, String> issuesTypesNames = new HashMap<String, String>();
 	public HashMap<String, String> issuesPrioritiesNames = new HashMap<String, String>();
 	public HashMap<String, String> issuesStatusesNames = new HashMap<String, String>();
-	private static HashMap<String, IssueType> issueTypes;
-	private static HashMap<String, Priority> priorities;
-	private static HashMap<String, Status> statuses;
-	private static String token;
-	private static String wsdl = "/rpc/soap/jirasoapservice-v2?wsdl";
+	private static HashMap<String, IssueType> issueTypes = new HashMap<String, IssueType>();
+	private static HashMap<String, Priority> priorities = new HashMap<String, Priority>();
+	private static HashMap<String, Status> statuses = new HashMap<String, Status>();
 	// Namespace we dontneed it now.
-	private static String NAMESPACE = "something.unical.fuck.yeah";
-	private static Connector INSTANCE = null;
 	private boolean isConnected = false;
-
-	private Connector() {
-		Injector injector = Guice.createInjector(new ConnectorsModule());
-		injector.injectMembers(authenthicationService);
-	}
 
 	public boolean getIsConnected() {
 		return isConnected;
@@ -107,42 +100,10 @@ public final class Connector {
 		this.isConnected = isConnected;
 	}
 
-	public static synchronized void setInstanceNULL() {
-		INSTANCE = null;
-	}
-
-	public static synchronized Connector getInstance() {
-		if (INSTANCE == null) {
-			INSTANCE = new Connector();
-			// Czy to ładnie rozwiązanie nie wiem....
-			INSTANCE.connectorIssues = new ConnectorIssues();
-			INSTANCE.connectorProjects = new ConnectorProjects();
-			INSTANCE.connectorFilters = new ConnectorFilters();
-			INSTANCE.connectorComments = new ConnectorComments();
-			INSTANCE.connectorWorkLog = new ConnectorWorkLog();
-			INSTANCE.connectorPriority = new ConnectorPriority();
-			INSTANCE.connectorIssueTypes = new ConnectorIssueTypes();
-			INSTANCE.connectorStatus = new ConnectorStatus();
-
-			Log.i("instance", INSTANCE.connectorIssueTypes.toString());
-
-			INSTANCE.connectorUser = new ConnectorUser();
-			INSTANCE.users = new HashMap<String, User>();
-			INSTANCE.issueTypes = new HashMap<String, IssueType>();
-			INSTANCE.priorities = new HashMap<String, Priority>();
-			INSTANCE.statuses = new HashMap<String, Status>();
-
-		}
-		return INSTANCE;
-	}
-
-
 	private void setUsernamePasswordUrl(String username, String password,
 	        String url) {
 
 		this.username = username;
-		this.password = password;
-		this.url = url;
 	}
 
 	/**
@@ -153,10 +114,8 @@ public final class Connector {
 	 * @throws Exception
 	 */
 	public boolean jiraLogin(String username, String password, String url,
-	        boolean secureConnection)
-	        throws AuthenticationException, CommunicationException,
-	        AuthorizationException {
-		this.jiraUrl = url + wsdl;
+	        boolean secureConnection) throws AuthenticationException,
+	        CommunicationException, AuthorizationException {
 		String protocol = secureConnection ? "https" : "http";
 		String hostandport = url.split("/", 1)[0];
 		String host = hostandport.split(":", 1)[0];
@@ -171,9 +130,7 @@ public final class Connector {
 		URL surl = null;
 		try {
 			if (port == null) {
-
 				surl = new URL(protocol, host, path);
-
 			}
 			else {
 				surl = new URL(protocol, host, port, path);
@@ -183,25 +140,14 @@ public final class Connector {
 			throw new RuntimeException(e);
 		}
 		authenthicationService.login(username, password, surl);
-		
-		try {
-			downloadIssueTypes();
-			downloadPriorities();
-			downloadStatuses();
-			INSTANCE.imagesCacher = ImagesCacher.getInstance2(issueTypes,
-					                   priorities, statuses, null);
-			imagesCacher.downloadAllNeededData();
-			setUsernamePasswordUrl(username, password, url);
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} catch (XmlPullParserException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} catch (RemoteException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
+
+		downloadIssueTypes();
+		downloadPriorities();
+		downloadStatuses();
+		imagesCacher = ImagesCacher.getInstance2(issueTypes,
+		        priorities, statuses, null);
+		imagesCacher.downloadAllNeededData();
+		setUsernamePasswordUrl(username, password, url);
 		return true;
 	}
 
@@ -218,13 +164,15 @@ public final class Connector {
 
 	/**
 	 * This method gets Projects from the server.
-	 * @throws AuthenticationException 
-	 * @throws AuthorizationException 
-	 * @throws CommunicationException 
 	 * 
+	 * @throws AuthenticationException
+	 * @throws AuthorizationException
+	 * @throws CommunicationException
 	 * @throws Exception
 	 */
-	public Project[] getProjects(boolean downloadAvatars) throws CommunicationException, AuthorizationException, AuthenticationException  {
+	public Project[] getProjects(boolean downloadAvatars)
+	        throws CommunicationException, AuthorizationException,
+	        AuthenticationException {
 		return connectorProjects.jiraGetProjects(downloadAvatars);
 	}
 
@@ -340,13 +288,15 @@ public final class Connector {
 
 	/**
 	 * Download User full information
-	 * @throws AuthenticationException 
-	 * @throws AuthorizationException 
-	 * @throws CommunicationException 
 	 * 
+	 * @throws AuthenticationException
+	 * @throws AuthorizationException
+	 * @throws CommunicationException
 	 * @throws Exception
 	 */
-	User downloadUserInformation(String username) throws CommunicationException, AuthorizationException, AuthenticationException {
+	User downloadUserInformation(String username)
+	        throws CommunicationException, AuthorizationException,
+	        AuthenticationException {
 
 		if (!users.containsKey(username)) {
 			users.put(username, connectorUser.jiraGetUser(username));
@@ -390,10 +340,13 @@ public final class Connector {
 	/**
 	 * Download all issue types
 	 * 
+	 * @throws AuthenticationException
+	 * @throws AuthorizationException
+	 * @throws CommunicationException
 	 * @throws Exception
 	 */
-	public void downloadIssueTypes() throws IOException,
-	        XmlPullParserException, RemoteException {
+	public void downloadIssueTypes() throws CommunicationException,
+	        AuthorizationException, AuthenticationException {
 		issueTypes = connectorIssueTypes.jiraGetIssueTypes();
 	}
 
@@ -413,14 +366,15 @@ public final class Connector {
 
 	/**
 	 * Download all priorities
-	 * @throws AuthenticationException 
-	 * @throws AuthorizationException 
-	 * @throws CommunicationException 
-	 * @throws RemoteException 
 	 * 
+	 * @throws AuthenticationException
+	 * @throws AuthorizationException
+	 * @throws CommunicationException
+	 * @throws RemoteException
 	 * @throws Exception
 	 */
-	public void downloadPriorities() throws RemoteException, CommunicationException, AuthorizationException, AuthenticationException  {
+	public void downloadPriorities() throws CommunicationException,
+	        AuthorizationException, AuthenticationException {
 		priorities = connectorPriority.jiraGetPriorities();
 	}
 
@@ -434,13 +388,14 @@ public final class Connector {
 
 	/**
 	 * Download all statuses
-	 * @throws AuthenticationException 
-	 * @throws AuthorizationException 
-	 * @throws CommunicationException 
 	 * 
+	 * @throws AuthenticationException
+	 * @throws AuthorizationException
+	 * @throws CommunicationException
 	 * @throws Exception
 	 */
-	public void downloadStatuses() throws CommunicationException, AuthorizationException, AuthenticationException {
+	public void downloadStatuses() throws CommunicationException,
+	        AuthorizationException, AuthenticationException {
 		statuses = connectorStatus.jiraGetStatuses();
 	}
 
@@ -463,20 +418,6 @@ public final class Connector {
 	 */
 	public String getToken() {
 		return authenthicationService.getToken();
-	}
-
-	/**
-	 * @return Returns the NameSpace
-	 */
-	public String getNameSpace() {
-		return NAMESPACE;
-	}
-
-	/**
-	 * @return Returns the JiraUrl
-	 */
-	public String getJiraUrl() {
-		return jiraUrl;
 	}
 
 	/**

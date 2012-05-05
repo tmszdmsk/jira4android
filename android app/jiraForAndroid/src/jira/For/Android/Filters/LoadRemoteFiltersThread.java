@@ -11,12 +11,14 @@ class LoadRemoteFiltersThread extends Thread<Filter[]> {
 
 	private ViewsForFilters viewsForFilters;
 	ImageView refresh;
+	private final Connector connector;
 
 	public LoadRemoteFiltersThread(View view, FiltersListActivity activity,
-	                         ViewsForFilters viewsForFilters) {
+	                         ViewsForFilters viewsForFilters, Connector connector) {
 		super(view, activity);
 
 		this.viewsForFilters = viewsForFilters;
+		this.connector = connector;
 		refresh = activity.getRefreshButton();
 	}
 	
@@ -50,7 +52,7 @@ class LoadRemoteFiltersThread extends Thread<Filter[]> {
 	protected synchronized Filter[] doInBackground(Void... params) {
 		DLog.i("FiltersListActivity", "doInBackground() <-- i'm here");
 		try {
-			return Connector.getInstance().getFilters();
+			return connector.getFilters();
 		} catch (Exception e) {
 			setException(e);
 		}

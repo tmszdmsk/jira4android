@@ -8,7 +8,7 @@ import jira.For.Android.Feedback.FeedbackActivity;
 import jira.For.Android.Filters.FiltersListActivity;
 import jira.For.Android.Help.HTMLDialog;
 import jira.For.Android.Login.LoginActivity;
-import android.app.Activity;
+import roboguice.activity.RoboActivity;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
@@ -23,7 +23,9 @@ import android.widget.AdapterView.OnItemClickListener;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-public class ProjectListActivity extends Activity implements
+import com.google.inject.Inject;
+
+public class ProjectListActivity extends RoboActivity implements
         OnItemClickListener {
 
 	Project[] projects;
@@ -31,6 +33,8 @@ public class ProjectListActivity extends Activity implements
 	ProjectListActivity projectListActivity;
 	private Context ctx;
 	private ImageView refresh;
+	@Inject
+	private Connector connector;
 	
 	public ImageView getRefreshButton() {
 		return refresh;
@@ -51,7 +55,7 @@ public class ProjectListActivity extends Activity implements
 		TextView txtView = (TextView) findViewById(R.id.text);
 		txtView.setText(R.string.projects);
 		projectListActivity = this;
-		thread = new LoadProjectsThread(getWindow().getDecorView(), this);
+		thread = new LoadProjectsThread(getWindow().getDecorView(), this, connector);
 		thread.execute();
 		refresh.setOnClickListener(new OnClickListener() {
 
@@ -65,7 +69,7 @@ public class ProjectListActivity extends Activity implements
 				findViewById(R.id.project_list_view).setVisibility(
 				        View.INVISIBLE);
 				thread = new LoadProjectsThread(getWindow().getDecorView(),
-				        projectListActivity);
+				        projectListActivity, connector);
 				thread.execute();
 
 			}
@@ -105,7 +109,7 @@ public class ProjectListActivity extends Activity implements
 				        intent.putExtra(LoginActivity.pls_do_not_login_me, true);
 				        startActivity(intent);
 				        finish();
-				        Connector.setInstanceNULL();
+				        connector.jiraLogout();
 				        return true;
 			        }
 		        });

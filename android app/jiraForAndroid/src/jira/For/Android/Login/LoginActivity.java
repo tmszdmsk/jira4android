@@ -55,7 +55,8 @@ public class LoginActivity extends RoboActivity {
 	private LoginThread thread;
 	private LoginActivity loginActivity = this;
 	public boolean cos = false;
-	Connector connector;
+	@Inject
+	private Connector connector;
 
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
@@ -65,7 +66,6 @@ public class LoginActivity extends RoboActivity {
 		super.onCreate(savedInstanceState);
 
 		setContentView(R.layout.login_activity_layout);
-		connector = Connector.getInstance();
 
 		// Setting INVISIBLE becouse default they are visible ;)
 		findViewById(R.id.data_is_loading).setVisibility(TextView.INVISIBLE);
@@ -300,7 +300,7 @@ public class LoginActivity extends RoboActivity {
 		        .setError(getString(R.string.login_toast_invalidUsername));
 		else if (pas == null) password
 		        .setError(getString(R.string.login_toast_invalidPassword));
-		else if (!Connector.getInstance().doWeHaveInternet(this)) Toast
+		else if (!connector.doWeHaveInternet(this)) Toast
 		        .makeText(this, getString(R.string.login_toast_no_internet),
 		                Toast.LENGTH_SHORT).show();
 		else {
@@ -310,7 +310,7 @@ public class LoginActivity extends RoboActivity {
 			
 			// Execution of new thread for login
 			thread = new LoginThread(this, settings, url, usr, pas, username,
-			        password, urlAddress, buttonLogin, spinner);
+			        password, urlAddress, buttonLogin, spinner, connector);
 			thread.execute();
 		}
 	}

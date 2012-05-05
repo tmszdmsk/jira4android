@@ -8,10 +8,10 @@ import jira.For.Android.Help.HTMLDialog;
 import jira.For.Android.Login.LoginActivity;
 import jira.For.Android.PagerView.MyPagerAdapter;
 import jira.For.Android.PagerView.ViewPagerIndicator;
+import roboguice.activity.RoboFragmentActivity;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.v4.app.FragmentActivity;
 import android.support.v4.view.ViewPager;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -22,7 +22,9 @@ import android.view.View.OnClickListener;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-public class FiltersListActivity extends FragmentActivity {
+import com.google.inject.Inject;
+
+public class FiltersListActivity extends RoboFragmentActivity {
 
 	// Package///////////////////////////////////////////////////////////////////
 	MyPagerAdapter pagerAdapter;
@@ -31,6 +33,8 @@ public class FiltersListActivity extends FragmentActivity {
 	FiltersListActivity filtersListActivity = this;
 	private Context ctx;
 	private ImageView refreshButton;
+	@Inject
+	private Connector connector;
 	// //////////////////////////////////////////////////////////////////////////
 	
 	public ImageView getRefreshButton() {
@@ -48,7 +52,7 @@ public class FiltersListActivity extends FragmentActivity {
 		// Activity isnt restarting on change orientation look manifest
 		setContentView(R.layout.filters_activity_layout);
 		pagerAdapter = new MyPagerAdapter(new ViewsForFilters(this,
-		        this.getBaseContext()));
+		        this.getBaseContext(),connector));
 		viewPager = (ViewPager) findViewById(R.id.view_pager);
 		viewPager.setAdapter(pagerAdapter);
 		viewPager.setOffscreenPageLimit(10);
@@ -81,7 +85,7 @@ public class FiltersListActivity extends FragmentActivity {
 				int curitem = viewPager.getCurrentItem();
 				pagerAdapter = new MyPagerAdapter(new ViewsForFilters(
 				        filtersListActivity, filtersListActivity
-				                .getBaseContext()));
+				                .getBaseContext(), connector));
 				viewPager.setAdapter(pagerAdapter);
 				viewPager.setOffscreenPageLimit(10);
 				viewPager.setCurrentItem(curitem, false);
@@ -126,7 +130,7 @@ public class FiltersListActivity extends FragmentActivity {
 				        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
 				        intent.putExtra(LoginActivity.pls_do_not_login_me, true);
 				        startActivity(intent);
-				        Connector.setInstanceNULL();
+				        connector.jiraLogout();
 				        finish();
 				        return true;
 			        }

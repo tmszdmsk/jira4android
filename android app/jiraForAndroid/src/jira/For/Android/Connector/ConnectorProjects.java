@@ -1,40 +1,36 @@
 package jira.For.Android.Connector;
 
-import java.io.IOException;
 import java.util.Vector;
 
 import jira.For.Android.DataTypes.Project;
-import jira.For.Android.RemoteExceptions.RemoteException;
 
 import org.ksoap2.serialization.SoapObject;
-import org.ksoap2.serialization.SoapSerializationEnvelope;
-import org.xmlpull.v1.XmlPullParserException;
 
-import com.jira4android.connectors.KSoapExecutor;
+import com.google.inject.Inject;
+import com.google.inject.Singleton;
+import com.jira4android.connectors.utils.KSoapExecutor;
+import com.jira4android.connectors.utils.SoapObjectBuilder;
 import com.jira4android.exceptions.AuthenticationException;
 import com.jira4android.exceptions.AuthorizationException;
 import com.jira4android.exceptions.CommunicationException;
+@Singleton
+public class ConnectorProjects {
 
-class ConnectorProjects {
-
+	@Inject
 	private Connector connector;
-	private KSoapExecutor soap = new KSoapExecutor();
+	@Inject
+	private KSoapExecutor soap;
 
-	// Powyżej jest envelope bo będziemy wyciągać image itp do projektów
+	Project[] jiraGetProjects(boolean downloadAvatars)
+	        throws CommunicationException, AuthorizationException,
+	        AuthenticationException {
 
-	ConnectorProjects() {
-		connector = Connector.getInstance();
-	}
+		SoapObject getProjects = SoapObjectBuilder.start()
+		        .withMethod("getProjectsNoSchemes")
+		        .withProperty("token", connector.getToken()).build();
 
-	Project[] jiraGetProjects(boolean downloadAvatars) throws CommunicationException, AuthorizationException, AuthenticationException{
-
-		SoapObject getProjects = new SoapObject(connector.getNameSpace(),
-		        "getProjectsNoSchemes");
-		getProjects.addProperty("token", connector.getToken());
-
-	
-
-		Vector<SoapObject> vc = soap.execute(getProjects, connector.instanceURL, Vector.class);
+		Vector<SoapObject> vc = soap.execute(getProjects,
+		        connector.instanceURL, Vector.class);
 		if (vc == null) return null;
 
 		Project[] projects = new Project[vc.size()];
@@ -63,16 +59,16 @@ class ConnectorProjects {
 		return projects;
 	}
 
-	void jiraGetProjectAvatar(Project project) throws CommunicationException, AuthorizationException, AuthenticationException{
+	void jiraGetProjectAvatar(Project project) throws CommunicationException,
+	        AuthorizationException, AuthenticationException {
 
-		SoapObject getAvatar = new SoapObject(connector.getNameSpace(),
-		        "getProjectAvatar");
-		getAvatar.addProperty("token", connector.getToken());
-		getAvatar.addProperty("projectKey", project.getKey());
+		SoapObject getAvatar = SoapObjectBuilder.start()
+		        .withMethod("getProjectAvatar")
+		        .withProperty("token", connector.getToken())
+		        .withProperty("projectKey", project.getKey()).build();
 
-
-
-		SoapObject body =  soap.execute(getAvatar, connector.instanceURL,SoapObject.class);
+		SoapObject body = soap.execute(getAvatar, connector.instanceURL,
+		        SoapObject.class);
 
 		// TODO Trzeba sprawdzić czy rysunek nie jest tym rysunkiem standardowym
 		// albo czy już go nie mamy w pamięci ;) np spr pole id lkub inne info

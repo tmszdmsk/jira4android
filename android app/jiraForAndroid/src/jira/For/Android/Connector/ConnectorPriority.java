@@ -1,47 +1,42 @@
 package jira.For.Android.Connector;
 
-import java.io.IOException;
 import java.util.HashMap;
 import java.util.Vector;
 
-import jira.For.Android.DLog;
 import jira.For.Android.DataTypes.Priority;
-import jira.For.Android.RemoteExceptions.RemoteException;
 
 import org.ksoap2.serialization.SoapObject;
-import org.ksoap2.serialization.SoapSerializationEnvelope;
-import org.xmlpull.v1.XmlPullParserException;
 
-import com.jira4android.connectors.KSoapExecutor;
+import com.google.inject.Inject;
+import com.google.inject.Singleton;
+import com.jira4android.connectors.utils.KSoapExecutor;
+import com.jira4android.connectors.utils.SoapObjectBuilder;
 import com.jira4android.exceptions.AuthenticationException;
 import com.jira4android.exceptions.AuthorizationException;
 import com.jira4android.exceptions.CommunicationException;
+@Singleton
+public class ConnectorPriority {
 
-class ConnectorPriority {
-
+	@Inject
 	private Connector connector;
-	private KSoapExecutor soap = new KSoapExecutor();
+	@Inject
+	private KSoapExecutor soap;
 
-	ConnectorPriority() {
-		connector = Connector.getInstance();
-	}
-
-	HashMap<String, Priority> jiraGetPriorities() throws RemoteException,
-	        CommunicationException, AuthorizationException,
+	HashMap<String, Priority> jiraGetPriorities()
+	        throws CommunicationException, AuthorizationException,
 	        AuthenticationException {
 
-		SoapObject getPriorities = new SoapObject(connector.getNameSpace(),
-		        "getPriorities");
-		getPriorities.addProperty("token", connector.getToken());
+		SoapObject getPriorities = SoapObjectBuilder.start()
+		        .withMethod("getPriorities")
+		        .withProperty("token", connector.getToken()).build();
 
 		return downloadFromServer(getPriorities);
 
 	}
 
 	private HashMap<String, Priority> downloadFromServer(
-	        SoapObject getPriorities) throws RemoteException,
-	        CommunicationException, AuthorizationException,
-	        AuthenticationException {
+	        SoapObject getPriorities) throws CommunicationException,
+	        AuthorizationException, AuthenticationException {
 
 		Vector<SoapObject> vc = soap.execute(getPriorities,
 		        connector.instanceURL, Vector.class);

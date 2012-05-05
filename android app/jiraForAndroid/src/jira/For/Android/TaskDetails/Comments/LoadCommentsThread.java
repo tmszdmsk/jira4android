@@ -19,12 +19,14 @@ import android.widget.ListView;
 public class LoadCommentsThread extends Thread<List<Comment>> {
 
 	Issue task;
+	private final Connector connector;
 
 
 	public LoadCommentsThread(View view, TaskDetailsActivity activity,
-	                          Issue task) {
+	                          Issue task, Connector connector) {
 		super(view, activity);
 		this.task = task;
+		this.connector = connector;
 	}
 
 	@Override
@@ -51,7 +53,7 @@ public class LoadCommentsThread extends Thread<List<Comment>> {
 	@Override
 	protected synchronized List<Comment> doInBackground(Void... params) {
 		try {
-			return Connector.getInstance().getComments(task.getKey());
+			return connector.getComments(task.getKey());
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();

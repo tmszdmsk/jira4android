@@ -35,9 +35,11 @@ class MyAdapter extends BaseAdapter implements ListAdapter {
 	private Date date;
 	SimpleDateFormat simdatform = new SimpleDateFormat(pattern);
 	private View v;
+	private final Connector connector;
 
 	public MyAdapter(Context context, Issue[] issues,
-	                 TaskListByJQLActivity taskListByJQLActivity) {
+	                 TaskListByJQLActivity taskListByJQLActivity, Connector connector) {
+		this.connector = connector;
 		this.inflater = (LayoutInflater) context
 		        .getSystemService(Context.LAYOUT_INFLATER_SERVICE);
 		this.issues = Collections.synchronizedList(new ArrayList<Issue>(Arrays
@@ -106,7 +108,7 @@ class MyAdapter extends BaseAdapter implements ListAdapter {
 			        + getQuery();
 			System.out.println("Jajco: " + jaco);
 
-			task = new TaskJQLThread(getFilterId(), jaco, activ);
+			task = new TaskJQLThread(getFilterId(), jaco, activ, connector);
 			task.execute();
 		}
 
@@ -114,7 +116,7 @@ class MyAdapter extends BaseAdapter implements ListAdapter {
 
 			System.out.println("Odpalam taska!!!!!!!!!!!!!@!@!@!@!@@");
 			task = new TaskJQLThread(getFilterId(), "updated < \'"
-			        + simdatform.format(date) + "\' And " + getQuery(), activ);
+			        + simdatform.format(date) + "\' And " + getQuery(), activ,connector);
 			task.execute();
 		}
 	}
@@ -151,7 +153,7 @@ class MyAdapter extends BaseAdapter implements ListAdapter {
 			                .get(issues.get(position).getPriority()));
 			
 			LinearLayout taskColor = (LinearLayout) convertView.findViewById(R.id.taskColor);
-			taskColor.setBackgroundColor(Color.parseColor(Connector.getInstance().getPriority(issues.get(position).getPriority()).getColor()));
+			taskColor.setBackgroundColor(Color.parseColor(connector.getPriority(issues.get(position).getPriority()).getColor()));
 
 			TextView key = (TextView) convertView
 			        .findViewById(R.id.rowTaskListByJQLActivityTaskKeyTextView);

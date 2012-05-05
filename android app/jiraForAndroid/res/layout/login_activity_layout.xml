@@ -52,7 +52,7 @@
                     android:layout_height="wrap_content"
                     android:layout_gravity="center_vertical"
                     android:entries="@array/http_or_https" />
-
+
                 <EditText
                     android:id="@+id/login_URL_EditText"
                     android:layout_width="wrap_content"
@@ -60,11 +60,13 @@
                     android:layout_gravity="center_vertical"
                     android:layout_weight="1"
                     android:hint="@string/login_URL_hint"
-                    android:singleLine="true"/>
+                    android:singleLine="true"
+                     />
+
             </LinearLayout>
 
             <!-- User's name -->
-
+
             <EditText
                 android:id="@+id/login_username_EditText"
                 android:layout_width="fill_parent"
@@ -73,10 +75,10 @@
                 android:layout_marginTop="5dp"
                 android:hint="@string/login_username_hint"
                 android:singleLine="true"
-                android:visibility="visible"/>
+                android:visibility="visible" />
 
             <!-- User's password -->
-
+
             <EditText
                 android:id="@+id/login_password_EditText"
                 android:layout_width="fill_parent"

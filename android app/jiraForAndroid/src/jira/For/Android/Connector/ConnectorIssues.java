@@ -1,63 +1,66 @@
 package jira.For.Android.Connector;
 
-import java.io.IOException;
 import java.util.Vector;
 
 import jira.For.Android.DataTypes.Issue;
-import jira.For.Android.RemoteExceptions.RemoteException;
 
 import org.ksoap2.serialization.SoapObject;
-import org.ksoap2.serialization.SoapSerializationEnvelope;
-import org.xmlpull.v1.XmlPullParserException;
 
-import com.jira4android.connectors.KSoapExecutor;
+import com.google.inject.Inject;
+import com.google.inject.Singleton;
+import com.jira4android.connectors.utils.KSoapExecutor;
+import com.jira4android.connectors.utils.SoapObjectBuilder;
 import com.jira4android.exceptions.AuthenticationException;
 import com.jira4android.exceptions.AuthorizationException;
 import com.jira4android.exceptions.CommunicationException;
+@Singleton
+public class ConnectorIssues {
 
-class ConnectorIssues {
-
+	@Inject
 	private Connector connector;
-	private KSoapExecutor soap = new KSoapExecutor();
-	public ConnectorIssues() {
-		connector = Connector.getInstance();
-	}
+	@Inject
+	private KSoapExecutor soap;
 
-	Issue[] jiraGetIssues(String query, int howMuch) throws CommunicationException, AuthorizationException, AuthenticationException {
+	Issue[] jiraGetIssues(String query, int howMuch)
+	        throws CommunicationException, AuthorizationException,
+	        AuthenticationException {
 
 		if (query == null || howMuch < 0) throw new IllegalArgumentException(
 		        "Bad arguments\nQuery:" + query + " howMuch:" + howMuch);
 
-		SoapObject getIssues = new SoapObject(connector.getNameSpace(),
-		        "getIssuesFromJqlSearch");
-		getIssues.addProperty("token", connector.getToken());
-		getIssues.addProperty("jqlSearch", query);
-		getIssues.addProperty("maxResults", howMuch);
+		SoapObject getIssues = SoapObjectBuilder.start()
+		        .withMethod("getIssuesFromJqlSearch")
+		        .withProperty("token", connector.getToken())
+		        .withProperty("jqlSearch", query)
+		        .withProperty("maxResults", howMuch).build();
 
 		return downloadFromServer(getIssues);
 	}
 
 	Issue[] jiraGetIssuesFromFilterWithLimit(String filterId, int offSet,
-	        int maxNumResults) throws CommunicationException, AuthorizationException, AuthenticationException {
+	        int maxNumResults) throws CommunicationException,
+	        AuthorizationException, AuthenticationException {
 
 		if (filterId == null || offSet < 0 || maxNumResults < 0) throw new IllegalArgumentException(
 		        "Wrong arguments\nfilterId:" + filterId + " offSet:" + offSet
 		                + " maxNumResults:" + maxNumResults);
 
-		SoapObject getIssuesFromFilter = new SoapObject(
-		        connector.getNameSpace(), "getIssuesFromFilterWithLimit");
-		getIssuesFromFilter.addProperty("token", connector.getToken());
-		getIssuesFromFilter.addProperty("filterId", filterId);
-		getIssuesFromFilter.addProperty("offSet", offSet);
-		getIssuesFromFilter.addProperty("maxNumResults", maxNumResults);
+		SoapObject getIssuesFromFilter = SoapObjectBuilder.start()
+		        .withMethod("getIssuesFromFilterWithLimit")
+		        .withProperty("token", connector.getToken())
+		        .withProperty("filterId", filterId)
+		        .withProperty("offSet", offSet)
+		        .withProperty("maxNumResults", maxNumResults).build();
 
 		return downloadFromServer(getIssuesFromFilter);
 	}
 
-	private Issue[] downloadFromServer(SoapObject getIssues) throws CommunicationException, AuthorizationException, AuthenticationException  {
+	private Issue[] downloadFromServer(SoapObject getIssues)
+	        throws CommunicationException, AuthorizationException,
+	        AuthenticationException {
 
-
-		Vector<SoapObject> vc = soap.execute(getIssues, connector.instanceURL, Vector.class);
+		Vector<SoapObject> vc = soap.execute(getIssues, connector.instanceURL,
+		        Vector.class);
 		if (vc == null) return null;
 
 		Issue[] issues = new Issue[vc.size()];
@@ -65,23 +68,20 @@ class ConnectorIssues {
 		SoapObject p;// Pomocnicza zmienna!
 		for (int i = 0; i < vc.size(); ++i) {
 			p = vc.get(i);
-			
+
 			String assigneeFullName;
 			String assignee = p.getPropertySafelyAsString("assignee");
-			if (assignee == null || assignee.compareToIgnoreCase("null") == 0)
-				assigneeFullName = "Unassigned";
-			else
-				assigneeFullName = connector.downloadUserInformation(assignee).getFullname();
+			if (assignee == null || assignee.compareToIgnoreCase("null") == 0) assigneeFullName = "Unassigned";
+			else assigneeFullName = connector.downloadUserInformation(assignee)
+			        .getFullname();
 			String reporterFullName;
 			String reporter = p.getPropertySafelyAsString("reporter");
-			if (reporter == null || reporter.compareToIgnoreCase("null") == 0)
-				reporterFullName = "NO REPORTER";
-			else
-				reporterFullName = connector.downloadUserInformation(reporter).getFullname();
+			if (reporter == null || reporter.compareToIgnoreCase("null") == 0) reporterFullName = "NO REPORTER";
+			else reporterFullName = connector.downloadUserInformation(reporter)
+			        .getFullname();
 
-			issues[i] = new Issue(p.getPropertySafelyAsString("id"),
-					assignee,
-					assigneeFullName,
+			issues[i] = new Issue(p.getPropertySafelyAsString("id"), assignee,
+			        assigneeFullName,
 			        p.getPropertySafelyAsString("description"),
 			        p.getPropertySafelyAsString("updated"),
 			        p.getPropertySafelyAsString("created"),
@@ -89,8 +89,7 @@ class ConnectorIssues {
 			        p.getPropertySafelyAsString("environment"),
 			        p.getPropertySafelyAsString("key"),
 			        p.getPropertySafelyAsString("priority"),
-			        p.getPropertySafelyAsString("project"),
-			        reporter,
+			        p.getPropertySafelyAsString("project"), reporter,
 			        reporterFullName,
 			        p.getPropertySafelyAsString("resolution"),
 			        p.getPropertySafelyAsString("status"),

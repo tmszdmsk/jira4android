@@ -10,10 +10,10 @@ import jira.For.Android.Login.LoginActivity;
 import jira.For.Android.PagerView.MyPagerAdapter;
 import jira.For.Android.PagerView.ViewPagerIndicator;
 import jira.For.Android.ProjectList.ProjectListActivity;
+import roboguice.activity.RoboFragmentActivity;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.v4.app.FragmentActivity;
 import android.support.v4.view.ViewPager;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -24,7 +24,9 @@ import android.view.View.OnClickListener;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-public class TaskDetailsActivity extends FragmentActivity {
+import com.google.inject.Inject;
+
+public class TaskDetailsActivity extends RoboFragmentActivity {
 
 	enum Tabs {
 		basicInfo, comments, worklog, attachments;
@@ -53,6 +55,8 @@ public class TaskDetailsActivity extends FragmentActivity {
 	ViewPager viewPager;
 	ViewPagerIndicator indicator;
 	TaskDetailsActivity taskDetailsActivity = this;
+	@Inject
+	private Connector connector;
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -83,7 +87,7 @@ public class TaskDetailsActivity extends FragmentActivity {
 		task = (Issue) extras.getSerializable("task");
 
 		// setting adapter and its layout
-		pagerAdapter = new MyPagerAdapter(new ViewsForTaskDetails(this, task));
+		pagerAdapter = new MyPagerAdapter(new ViewsForTaskDetails(this, task, connector));
 		viewPager = (ViewPager) findViewById(R.id.view_pager);
 		viewPager.setAdapter(pagerAdapter);
 		viewPager.setOffscreenPageLimit(10);
@@ -110,7 +114,7 @@ public class TaskDetailsActivity extends FragmentActivity {
 			public void onClick(View v) {
 				int curitem = viewPager.getCurrentItem();
 				pagerAdapter = new MyPagerAdapter(new ViewsForTaskDetails(
-				        taskDetailsActivity, task));
+				        taskDetailsActivity, task, connector));
 				viewPager.setAdapter(pagerAdapter);
 				viewPager.setOffscreenPageLimit(10);
 				indicator.init(curitem, pagerAdapter.getCount(), pagerAdapter);
@@ -155,7 +159,7 @@ public class TaskDetailsActivity extends FragmentActivity {
 				        intent.putExtra(LoginActivity.pls_do_not_login_me, true);
 				        startActivity(intent);
 				        finish();
-				        Connector.setInstanceNULL();
+				        connector.jiraLogout();
 				        return true;
 			        }
 		        });

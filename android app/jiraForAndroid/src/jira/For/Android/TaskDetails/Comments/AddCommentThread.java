@@ -17,12 +17,14 @@ public class AddCommentThread extends Thread<Void> {
 
 	private Comment comment;
 	private String issueKey;
+	private final Connector connector;
 
 	public AddCommentThread(TaskDetailsActivity taskDetailsActivity,
-	                        Comment comment, String issueKey) {
+	                        Comment comment, String issueKey, Connector connector) {
 		super(taskDetailsActivity);
 		this.comment = comment;
 		this.issueKey = issueKey;
+		this.connector = connector;
 	}
 
 	@Override
@@ -46,7 +48,7 @@ public class AddCommentThread extends Thread<Void> {
 	protected Void doInBackground(Void... params) {
 		DLog.i("AddCommentThread", "doInBackground() <-- i'm here");
 		try {
-			Connector.getInstance().addComment(issueKey, comment);
+			connector.addComment(issueKey, comment);
 		} catch (Exception e) {
 			setException(e);
 		}

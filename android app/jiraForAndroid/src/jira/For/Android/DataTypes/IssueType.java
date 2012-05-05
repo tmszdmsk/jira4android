@@ -60,7 +60,7 @@ public class IssueType implements IconUrlProvider{
 	private boolean subTask;
 
 	public IssueType(String id, String name, String description, String icon,
-	                 boolean subTask) throws MalformedURLException {
+	                 boolean subTask) {
 		setId(id);
 		setName(name);
 		setDescription(description);
