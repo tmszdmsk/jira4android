@@ -318,24 +318,7 @@ public class LoginActivity extends RoboActivity {
 	 * @return valid URL or null
 	 */
 	private String getUrlAddress() {
-
-		DLog.i("LoginActivity", "getUrlAddress() <-- i'm here");
-		// Get URL form EditText
 		String str = urlAddress.getText().toString();
-
-		// Regular expression for URL
-		String regex = "^[^http://|https://][-a-zA-Z0-9+&@#/%?=~_|!:,.;]*[-a-zA-Z0-9+&@#/%=~_|]";
-
-		
-		// Checking the input from EditText
-		Pattern pattern = Pattern.compile(regex);
-		Matcher matcher = pattern.matcher(str);
-		// Don't match and contain "/" on the last position
-		if (!matcher.matches() || str.charAt(str.length() - 1) == '/') {
-			// If doesn't suit
-			DLog.i("LoginActivity", "getUrlAddress() <--- The URL is invalid!");
-			return null;
-		}
 		return str;
 	}
 
