@@ -1,12 +1,6 @@
 package jira.For.Android.Login;
 
-import java.net.UnknownHostException;
-
 import javax.net.ssl.SSLException;
-
-import com.jira4android.exceptions.AuthenticationException;
-import com.jira4android.exceptions.AuthorizationException;
-import com.jira4android.exceptions.CommunicationException;
 
 import jira.For.Android.DLog;
 import jira.For.Android.PreferenceKeyHolder;
@@ -14,9 +8,6 @@ import jira.For.Android.R;
 import jira.For.Android.Thread;
 import jira.For.Android.Connector.Connector;
 import jira.For.Android.ProjectList.ProjectListActivity;
-import jira.For.Android.RemoteExceptions.RemoteAuthenticationException;
-import jira.For.Android.RemoteExceptions.RemotePermissionException;
-import jira.For.Android.RemoteExceptions.RemoteValidationException;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.view.View;
@@ -26,6 +17,10 @@ import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import com.jira4android.exceptions.AuthenticationException;
+import com.jira4android.exceptions.AuthorizationException;
+import com.jira4android.exceptions.CommunicationException;
 
 class LoginThread extends Thread<Boolean> {
 

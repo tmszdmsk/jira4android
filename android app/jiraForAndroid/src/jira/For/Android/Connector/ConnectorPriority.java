@@ -38,8 +38,7 @@ public class ConnectorPriority {
 	        SoapObject getPriorities) throws CommunicationException,
 	        AuthorizationException, AuthenticationException {
 
-		Vector<SoapObject> vc = soap.execute(getPriorities,
-		        connector.instanceURL, Vector.class);
+		Vector<SoapObject> vc = soap.execute(getPriorities, Vector.class);
 
 		if (vc == null) {
 			return null;

@@ -14,6 +14,7 @@ import com.jira4android.connectors.utils.SoapObjectBuilder;
 import com.jira4android.exceptions.AuthenticationException;
 import com.jira4android.exceptions.AuthorizationException;
 import com.jira4android.exceptions.CommunicationException;
+
 @Singleton
 public class ConnectorIssueTypes {
 
@@ -46,8 +47,7 @@ public class ConnectorIssueTypes {
 	        SoapObject getIssueTypes) throws CommunicationException,
 	        AuthorizationException, AuthenticationException {
 
-		Vector<SoapObject> vc = soap.execute(getIssueTypes,
-		        Connector.instanceURL, Vector.class);
+		Vector<SoapObject> vc = soap.execute(getIssueTypes, Vector.class);
 
 		if (vc == null) {
 			return null;

@@ -11,6 +11,7 @@ import com.jira4android.connectors.utils.SoapObjectBuilder;
 import com.jira4android.exceptions.AuthenticationException;
 import com.jira4android.exceptions.AuthorizationException;
 import com.jira4android.exceptions.CommunicationException;
+
 @Singleton
 public class ConnectorUser {
 
@@ -30,8 +31,7 @@ public class ConnectorUser {
 		        .withProperty("token", connector.getToken())
 		        .withProperty("username", username).build();
 
-		SoapObject body = soap.execute(getUser, connector.instanceURL,
-		        SoapObject.class);
+		SoapObject body = soap.execute(getUser, SoapObject.class);
 
 		System.out.println("Mam usera: " + body);
 

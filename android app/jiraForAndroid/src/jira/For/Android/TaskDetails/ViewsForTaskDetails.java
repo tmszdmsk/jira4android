@@ -189,17 +189,6 @@ class ViewsForTaskDetails implements ViewForPagerInterface {
 	}
 
 	/**
-	 * Setting setting elements in Attachments tab
-	 * 
-	 * @param view
-	 */
-
-	private void setAttachmentsInfo(View view) {
-		// TODO Auto-generated method stub
-
-	}
-
-	/**
 	 * Setting setting elements in History tab
 	 * 
 	 * @param view

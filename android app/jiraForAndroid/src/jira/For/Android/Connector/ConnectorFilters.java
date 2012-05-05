@@ -28,8 +28,7 @@ public class ConnectorFilters {
 		        .withMethod("getFavouriteFilters")
 		        .withProperty("token", connector.getToken()).build();
 
-		Vector<SoapObject> vc = soap.execute(getFavouriteFilters,
-		        connector.instanceURL, Vector.class);
+		Vector<SoapObject> vc = soap.execute(getFavouriteFilters, Vector.class);
 		if (vc == null) return null;
 
 		Filter[] filters = new Filter[vc.size()];

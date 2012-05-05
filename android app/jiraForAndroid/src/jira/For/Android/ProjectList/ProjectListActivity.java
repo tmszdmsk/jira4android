@@ -1,6 +1,7 @@
 package jira.For.Android.ProjectList;
 
 import jira.For.Android.DLog;
+import jira.For.Android.GeneralActivity;
 import jira.For.Android.R;
 import jira.For.Android.Connector.Connector;
 import jira.For.Android.DataTypes.Project;
@@ -8,7 +9,6 @@ import jira.For.Android.Feedback.FeedbackActivity;
 import jira.For.Android.Filters.FiltersListActivity;
 import jira.For.Android.Help.HTMLDialog;
 import jira.For.Android.Login.LoginActivity;
-import roboguice.activity.RoboActivity;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
@@ -22,10 +22,10 @@ import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
 import android.widget.ImageView;
 import android.widget.TextView;
-
 import com.google.inject.Inject;
 
-public class ProjectListActivity extends RoboActivity implements
+
+public class ProjectListActivity extends GeneralActivity implements
         OnItemClickListener {
 
 	Project[] projects;

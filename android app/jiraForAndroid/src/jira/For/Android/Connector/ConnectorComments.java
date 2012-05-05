@@ -35,8 +35,7 @@ public class ConnectorComments {
 		        .withProperty("token", connector.getToken())
 		        .withProperty("issueKey", issueKey).build();
 
-		Vector<SoapObject> vc = soap.execute(getComments,
-		        connector.instanceURL, Vector.class);
+		Vector<SoapObject> vc = soap.execute(getComments, Vector.class);
 		if (vc == null) {
 			return null;
 		}
@@ -67,11 +66,6 @@ public class ConnectorComments {
 		return comments;
 	}
 
-	/*
-	 * - void addComment(java.lang.String token, java.lang.String issueKey,
-	 * RemoteComment remoteComment) throws RemotePermissionException,
-	 * RemoteAuthenticationException, RemoteException
-	 */
 	/**
 	 * Adds a comment to the specified issue
 	 * 
@@ -101,6 +95,6 @@ public class ConnectorComments {
 		        .withProperty("issueKey", issueKey)
 		        .withSoapObject(remoteComment).build();
 
-		soap.execute(addComment, connector.instanceURL);
+		soap.execute(addComment);
 	}
 }

@@ -3,19 +3,14 @@ package jira.For.Android.Login;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-import com.google.inject.Inject;
-
-import roboguice.activity.RoboActivity;
-
 import jira.For.Android.DLog;
 import jira.For.Android.DefaultPreference;
 import jira.For.Android.PreferenceKeyHolder;
 import jira.For.Android.R;
 import jira.For.Android.Connector.Connector;
-import jira.For.Android.Connector.ConnectorUser;
 import jira.For.Android.Feedback.FeedbackActivity;
 import jira.For.Android.Help.HTMLDialog;
-import android.app.Activity;
+import roboguice.activity.RoboActivity;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -39,6 +34,8 @@ import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import com.google.inject.Inject;
 
 public class LoginActivity extends RoboActivity {
 
@@ -329,17 +326,16 @@ public class LoginActivity extends RoboActivity {
 		// Regular expression for URL
 		String regex = "^[^http://|https://][-a-zA-Z0-9+&@#/%?=~_|!:,.;]*[-a-zA-Z0-9+&@#/%=~_|]";
 
-// [TT] Pattern matching does'nt work for my URL --> removed
 		
-//		// Checking the input from EditText
-//		Pattern pattern = Pattern.compile(regex);
-//		Matcher matcher = pattern.matcher(str);
-//		// Don't match and contain "/" on the last position
-//		if (!matcher.matches() || str.charAt(str.length() - 1) == '/') {
-//			// If doesn't suit
-//			DLog.i("LoginActivity", "getUrlAddress() <--- The URL is invalid!");
-//			return null;
-//		}
+		// Checking the input from EditText
+		Pattern pattern = Pattern.compile(regex);
+		Matcher matcher = pattern.matcher(str);
+		// Don't match and contain "/" on the last position
+		if (!matcher.matches() || str.charAt(str.length() - 1) == '/') {
+			// If doesn't suit
+			DLog.i("LoginActivity", "getUrlAddress() <--- The URL is invalid!");
+			return null;
+		}
 		return str;
 	}
 

@@ -19,7 +19,9 @@ import org.xmlpull.v1.XmlPullParserException;
 
 import android.util.Log;
 
+import com.google.inject.Inject;
 import com.google.inject.Singleton;
+import com.jira4android.connectors.AuthenthicationService;
 import com.jira4android.exceptions.AuthenticationException;
 import com.jira4android.exceptions.AuthorizationException;
 import com.jira4android.exceptions.CommunicationException;
@@ -27,15 +29,40 @@ import com.jira4android.exceptions.CommunicationException;
 @Singleton
 public class KSoapExecutor {
 
+	@Inject
+	AuthenthicationService authenthicationService;
+
 	private static final int TIMEOUT = 7000;
 	private static final String WSDL_PATH = "/rpc/soap/jirasoapservice-v2?wsdl";
 
+	public <T> T execute(SoapObject soapObject, Class<T> clazz)
+	        throws CommunicationException, AuthorizationException,
+	        AuthenticationException {
+		URL instanceUrl = authenthicationService.getServerUrl();
+		return execute(soapObject, instanceUrl, clazz);
+	}
+
+	public void execute(SoapObject soapObject)
+	        throws CommunicationException, AuthorizationException,
+	        AuthenticationException {
+		URL instanceUrl = authenthicationService.getServerUrl();
+		this.execute(soapObject, instanceUrl, Object.class);
+	}
+	
+	public void execute(SoapObject soapObject, URL instanceURL)
+	        throws CommunicationException, AuthorizationException,
+	        AuthenticationException {
+		this.execute(soapObject, instanceURL, Object.class);
+	}
+
 	@SuppressWarnings("unchecked")
-	public <T> T execute(SoapObject soapObject, URL instanceURL,
-	        Class<T> clazz) throws CommunicationException,
-	        AuthorizationException, AuthenticationException {
-		
-		Log.i(KSoapExecutor.class.getName(), "executing command with soapObject:\n"+soapObject);
+	public <T> T
+	        execute(SoapObject soapObject, URL instanceURL, Class<T> clazz)
+	                throws CommunicationException, AuthorizationException,
+	                AuthenticationException {
+
+		Log.i(KSoapExecutor.class.getName(),
+		        "executing command with soapObject:\n" + soapObject);
 		Transport transport = getTransport(instanceURL);
 		SoapSerializationEnvelope envelope = new SoapSerializationEnvelope(
 		        SoapSerializationEnvelope.VER11);
@@ -50,20 +77,16 @@ public class KSoapExecutor {
 
 		T result = null;
 		try {
-
 			result = (T) envelope.getResponse();
 			SoapObject env = (SoapObject) envelope.bodyIn;
-			Object property = env.getProperty(0);
-			
+			@SuppressWarnings("unused")
+			//it's called to handle potential exception
+            Object property = env.getProperty(0);
 		} catch (SoapFault e) {
 			handleRemoteExceptions(e);
 		}
-		Log.i(KSoapExecutor.class.getName(), "result returned:\n"+result);
+		Log.i(KSoapExecutor.class.getName(), "result returned:\n" + result);
 		return result;
-	}
-	
-	public void execute(SoapObject soapObject, URL instanceURL) throws CommunicationException, AuthorizationException, AuthenticationException{
-		this.execute(soapObject, instanceURL, Object.class);
 	}
 
 	private Transport getTransport(URL jiraInstanceURL) {
@@ -80,7 +103,7 @@ public class KSoapExecutor {
 			        "Doesn't support other protocols than HTTP & HTTPS for now");
 		}
 	}
-	
+
 	private void handleRemoteExceptions(SoapFault ex)
 	        throws AuthorizationException, AuthenticationException,
 	        CommunicationException {

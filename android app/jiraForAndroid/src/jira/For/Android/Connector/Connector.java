@@ -20,10 +20,7 @@ import jira.For.Android.ImagesCacher.ImagesCacher;
 import jira.For.Android.RemoteExceptions.RemoteException;
 
 import org.ksoap2.serialization.SoapSerializationEnvelope;
-import org.ksoap2.transport.Transport;
 import org.xmlpull.v1.XmlPullParserException;
-
-import roboguice.inject.ContextSingleton;
 
 import android.content.Context;
 import android.net.ConnectivityManager;
@@ -46,19 +43,6 @@ import com.jira4android.exceptions.CommunicationException;
  */
 @Singleton
 public final class Connector {
-
-	public static URL instanceURL;
-	{
-		try {
-			instanceURL = new URL("http://jira.wmi.amu.edu.pl");
-		} catch (MalformedURLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-	}
-	private static final int TIME_OUT = 50000;
-	private Transport transportSe;
-	private SoapSerializationEnvelope ENVELOPE;
 
 	@Inject
 	private ConnectorProjects connectorProjects;

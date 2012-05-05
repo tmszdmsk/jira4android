@@ -13,6 +13,7 @@ import com.jira4android.connectors.utils.SoapObjectBuilder;
 import com.jira4android.exceptions.AuthenticationException;
 import com.jira4android.exceptions.AuthorizationException;
 import com.jira4android.exceptions.CommunicationException;
+
 @Singleton
 public class ConnectorProjects {
 
@@ -29,8 +30,7 @@ public class ConnectorProjects {
 		        .withMethod("getProjectsNoSchemes")
 		        .withProperty("token", connector.getToken()).build();
 
-		Vector<SoapObject> vc = soap.execute(getProjects,
-		        connector.instanceURL, Vector.class);
+		Vector<SoapObject> vc = soap.execute(getProjects, Vector.class);
 		if (vc == null) return null;
 
 		Project[] projects = new Project[vc.size()];
@@ -67,8 +67,7 @@ public class ConnectorProjects {
 		        .withProperty("token", connector.getToken())
 		        .withProperty("projectKey", project.getKey()).build();
 
-		SoapObject body = soap.execute(getAvatar, connector.instanceURL,
-		        SoapObject.class);
+		SoapObject body = soap.execute(getAvatar, SoapObject.class);
 
 		// TODO Trzeba sprawdzić czy rysunek nie jest tym rysunkiem standardowym
 		// albo czy już go nie mamy w pamięci ;) np spr pole id lkub inne info

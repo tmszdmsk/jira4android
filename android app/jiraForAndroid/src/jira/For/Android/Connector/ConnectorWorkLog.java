@@ -48,8 +48,7 @@ public class ConnectorWorkLog {
 	                throws CommunicationException, AuthorizationException,
 	                AuthenticationException {
 
-		Vector<SoapObject> vc = soap.execute(getWorklogs,
-		        connector.instanceURL, Vector.class);
+		Vector<SoapObject> vc = soap.execute(getWorklogs, Vector.class);
 		if (vc == null) return null;
 		Log.e("worklogi", Integer.toString(vc.size()));
 		List<WorkLog> worklogs = new ArrayList<WorkLog>();

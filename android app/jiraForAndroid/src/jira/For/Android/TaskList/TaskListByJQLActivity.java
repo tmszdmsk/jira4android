@@ -3,6 +3,7 @@ package jira.For.Android.TaskList;
 import java.util.Arrays;
 
 import jira.For.Android.DLog;
+import jira.For.Android.GeneralActivity;
 import jira.For.Android.R;
 import jira.For.Android.Connector.Connector;
 import jira.For.Android.DataTypes.Issue;
@@ -11,7 +12,6 @@ import jira.For.Android.Help.HTMLDialog;
 import jira.For.Android.Login.LoginActivity;
 import jira.For.Android.ProjectList.ProjectListActivity;
 import jira.For.Android.TaskDetails.TaskDetailsActivity;
-import roboguice.activity.RoboActivity;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
@@ -30,7 +30,7 @@ import android.widget.TextView;
 
 import com.google.inject.Inject;
 
-public class TaskListByJQLActivity extends RoboActivity {
+public class TaskListByJQLActivity extends GeneralActivity {
 
 	// Issue[] issues;
 	private TaskListByJQLActivity taskListByJQLACtivity;
