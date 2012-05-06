@@ -9,6 +9,7 @@ import java.util.List;
 
 import jira.For.Android.R;
 import jira.For.Android.Connector.Connector;
+import jira.For.Android.Connector.ConnectorIssues;
 import jira.For.Android.DataTypes.Issue;
 import jira.For.Android.ImagesCacher.ImagesCacher;
 import android.content.Context;
@@ -35,11 +36,14 @@ class MyAdapter extends BaseAdapter implements ListAdapter {
 	private Date date;
 	SimpleDateFormat simdatform = new SimpleDateFormat(pattern);
 	private View v;
-	private final Connector connector;
+	private ConnectorIssues connectorIssues;
+	private Connector connector;
 
 	public MyAdapter(Context context, Issue[] issues,
-	                 TaskListByJQLActivity taskListByJQLActivity, Connector connector) {
+	                 TaskListByJQLActivity taskListByJQLActivity,
+	                 Connector connector, ConnectorIssues connectorIssues) {
 		this.connector = connector;
+		this.connectorIssues = connectorIssues;
 		this.inflater = (LayoutInflater) context
 		        .getSystemService(Context.LAYOUT_INFLATER_SERVICE);
 		this.issues = Collections.synchronizedList(new ArrayList<Issue>(Arrays
@@ -108,7 +112,8 @@ class MyAdapter extends BaseAdapter implements ListAdapter {
 			        + getQuery();
 			System.out.println("Jajco: " + jaco);
 
-			task = new TaskJQLThread(getFilterId(), jaco, activ, connector);
+			task = new TaskJQLThread(getFilterId(), jaco, activ,
+			        connectorIssues);
 			task.execute();
 		}
 
@@ -116,7 +121,8 @@ class MyAdapter extends BaseAdapter implements ListAdapter {
 
 			System.out.println("Odpalam taska!!!!!!!!!!!!!@!@!@!@!@@");
 			task = new TaskJQLThread(getFilterId(), "updated < \'"
-			        + simdatform.format(date) + "\' And " + getQuery(), activ,connector);
+			        + simdatform.format(date) + "\' And " + getQuery(), activ,
+			        connectorIssues);
 			task.execute();
 		}
 	}
@@ -151,9 +157,12 @@ class MyAdapter extends BaseAdapter implements ListAdapter {
 			taskPriory
 			        .setImageBitmap(ImagesCacher.getInstance().issuesPrioritesBitmaps
 			                .get(issues.get(position).getPriority()));
-			
-			LinearLayout taskColor = (LinearLayout) convertView.findViewById(R.id.taskColor);
-			taskColor.setBackgroundColor(Color.parseColor(connector.getPriority(issues.get(position).getPriority()).getColor()));
+
+			LinearLayout taskColor = (LinearLayout) convertView
+			        .findViewById(R.id.taskColor);
+			taskColor.setBackgroundColor(Color
+			        .parseColor(connector.getPriority(
+			                issues.get(position).getPriority()).getColor()));
 
 			TextView key = (TextView) convertView
 			        .findViewById(R.id.rowTaskListByJQLActivityTaskKeyTextView);

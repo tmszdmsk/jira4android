@@ -3,6 +3,7 @@ package jira.For.Android.TaskList;
 import jira.For.Android.DLog;
 import jira.For.Android.Thread;
 import jira.For.Android.Connector.Connector;
+import jira.For.Android.Connector.ConnectorIssues;
 import jira.For.Android.DataTypes.Issue;
 import android.util.Log;
 import android.widget.ImageView;
@@ -12,14 +13,14 @@ public class TaskJQLThread extends Thread<Issue[]> {
 	String query, filterId;
 	private boolean isListDown;
 	ImageView refresh;
-	private final Connector connector;
+	private final ConnectorIssues connectorIssues;
 
 	public TaskJQLThread(String filterId, String query,
-	                     TaskListByJQLActivity taskListByJQLActivity, Connector connector) {
+	                     TaskListByJQLActivity taskListByJQLActivity, ConnectorIssues connector) {
 		super(taskListByJQLActivity);
 		this.query = query;
 		this.filterId = filterId;
-		this.connector = connector;
+		this.connectorIssues = connector;
 		refresh = taskListByJQLActivity.getRefreshButton();
 
 	}
@@ -107,12 +108,12 @@ public class TaskJQLThread extends Thread<Issue[]> {
 				((TaskListByJQLActivity) activity).setIsDownloading(true);
 				System.out.println("In doInBackground() of TaskJQLThread "
 				        + "\"" + query + "\"");
-				return connector.getIssuesByJQL(query,
+				return connectorIssues.getIssuesByJQL(query,
 				        TaskListByJQLActivity.TASKLIST_COUNT);
 			}
 			else if (filterId != null) {
 				((TaskListByJQLActivity) activity).setIsDownloading(true);
-				return connector.getIssuesFromFilterWithLimit(
+				return connectorIssues.getIssuesFromFilterWithLimit(
 				        filterId, 0, 30);
 			}
 			else {

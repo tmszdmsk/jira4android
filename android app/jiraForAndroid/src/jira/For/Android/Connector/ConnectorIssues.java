@@ -22,7 +22,7 @@ public class ConnectorIssues {
 	@Inject
 	private KSoapExecutor soap;
 
-	Issue[] jiraGetIssues(String query, int howMuch)
+	public Issue[] getIssuesByJQL(String query, int howMuch)
 	        throws CommunicationException, AuthorizationException,
 	        AuthenticationException {
 
@@ -38,7 +38,7 @@ public class ConnectorIssues {
 		return downloadFromServer(getIssues);
 	}
 
-	Issue[] jiraGetIssuesFromFilterWithLimit(String filterId, int offSet,
+	public Issue[] getIssuesFromFilterWithLimit(String filterId, int offSet,
 	        int maxNumResults) throws CommunicationException,
 	        AuthorizationException, AuthenticationException {
 

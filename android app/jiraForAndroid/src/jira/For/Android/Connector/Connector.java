@@ -147,35 +147,6 @@ public final class Connector {
 	}
 
 	/**
-	 * @return Returns an array of Tasks
-	 * @throws XmlPullParserException
-	 * @throws IOException
-	 * @throws Exception
-	 *             with msg Not Connected or Wrong arguments...
-	 */
-	public Issue[] getIssuesByJQL(String query, int ile) throws IOException,
-	        XmlPullParserException, Exception {
-
-		return connectorIssues.jiraGetIssues(query, ile);
-	}
-
-	/**
-	 * Returns an array of issues which are output of saved filter
-	 * 
-	 * @return Tab of issues
-	 * @throws XmlPullParserException
-	 * @throws IOException
-	 * @throws Exception
-	 */
-	public Issue[] getIssuesFromFilterWithLimit(String filterId, int offSet,
-	        int maxNumResults) throws IOException, XmlPullParserException,
-	        Exception {
-
-		return connectorIssues.jiraGetIssuesFromFilterWithLimit(filterId,
-		        offSet, maxNumResults);
-	}
-
-	/**
 	 * Returns an array of filters which are saved on server
 	 * 
 	 * @return Tab of filters

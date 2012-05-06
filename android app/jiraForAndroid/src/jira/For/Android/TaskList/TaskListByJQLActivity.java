@@ -6,6 +6,7 @@ import jira.For.Android.DLog;
 import jira.For.Android.GeneralActivity;
 import jira.For.Android.R;
 import jira.For.Android.Connector.Connector;
+import jira.For.Android.Connector.ConnectorIssues;
 import jira.For.Android.DataTypes.Issue;
 import jira.For.Android.Feedback.FeedbackActivity;
 import jira.For.Android.Help.HTMLDialog;
@@ -49,6 +50,8 @@ public class TaskListByJQLActivity extends GeneralActivity {
 	private ImageView refreshButton;
 	@Inject
 	private Connector connector;
+	@Inject
+	private ConnectorIssues connectorIssues;
 
 	/*
 	 * public int getIssuesSize() { return issues.size(); }
@@ -128,7 +131,7 @@ public class TaskListByJQLActivity extends GeneralActivity {
 		// getLayoutInflater().inflate(R.id.taskListByJQLActivityListView,
 		// null);
 		listView.setVisibility(View.VISIBLE);
-		listView.setAdapter(new MyAdapter(this, result, this, connector));
+		listView.setAdapter(new MyAdapter(this, result, this, connector, connectorIssues));
 
 		listView.setOnItemClickListener(new OnItemClickListener() {
 
@@ -185,7 +188,7 @@ public class TaskListByJQLActivity extends GeneralActivity {
 		});
 		refreshButton = (ImageView) findViewById(R.id.image_refresh);
 		// TODO Trzeba zaktualizować issues?
-		thread = new TaskJQLThread(filterId, query, this, connector);
+		thread = new TaskJQLThread(filterId, query, this, connectorIssues);
 		thread.execute();
 		refreshButton.setOnClickListener(new OnClickListener() {
 
@@ -203,7 +206,7 @@ public class TaskListByJQLActivity extends GeneralActivity {
 				        .setVisibility(View.VISIBLE);
 
 				thread = new TaskJQLThread(filterId, query,
-				        taskListByJQLACtivity,connector);
+				        taskListByJQLACtivity,connectorIssues);
 				thread.execute();
 
 			}
