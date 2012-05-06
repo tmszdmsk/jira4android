@@ -128,8 +128,8 @@ public final class Connector {
 		downloadIssueTypes();
 		downloadPriorities();
 		downloadStatuses();
-		imagesCacher = ImagesCacher.getInstance2(issueTypes,
-		        priorities, statuses, null);
+		imagesCacher = ImagesCacher.getInstance2(issueTypes, priorities,
+		        statuses, null);
 		imagesCacher.downloadAllNeededData();
 		setUsernamePasswordUrl(username, password, url);
 		return true;
@@ -144,24 +144,6 @@ public final class Connector {
 	public boolean jiraLogout() {
 		authenthicationService.logout();
 		return true;
-	}
-
-	/**
-	 * @return Returns an array of SubTasks
-	 * @throws XmlPullParserException
-	 * @throws IOException
-	 * @throws Exception
-	 *             with msg Not Connected or Issue Key is null
-	 */
-	public Issue[] getSubIssues(String issueKey) throws IOException,
-	        XmlPullParserException, Exception {
-
-		if (issueKey != null) {
-			return connectorIssues.jiraGetIssues("parent=" + issueKey, 20);
-		}
-		else {
-			throw new Exception("Issue Key is null");
-		}
 	}
 
 	/**
