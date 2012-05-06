@@ -23,7 +23,7 @@ public class ConnectorComments {
 	@Inject
 	private KSoapExecutor soap;
 
-	public synchronized List<Comment> getComments(String issueKey)
+    public synchronized List<Comment> getComments(String issueKey)
 	        throws CommunicationException, AuthorizationException,
 	        AuthenticationException {
 		if (issueKey == null) {
@@ -35,7 +35,8 @@ public class ConnectorComments {
 		        .withProperty("token", connector.getToken())
 		        .withProperty("issueKey", issueKey).build();
 
-		Vector<SoapObject> vc = soap.execute(getComments, Vector.class);
+		@SuppressWarnings("unchecked")
+        Vector<SoapObject> vc = soap.execute(getComments, Vector.class);
 		if (vc == null) {
 			return null;
 		}

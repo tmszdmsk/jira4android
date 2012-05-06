@@ -3,7 +3,6 @@ package jira.For.Android.TaskDetails.Comments;
 import jira.For.Android.DLog;
 import jira.For.Android.R;
 import jira.For.Android.Thread;
-import jira.For.Android.Connector.Connector;
 import jira.For.Android.Connector.ConnectorComments;
 import jira.For.Android.DataTypes.Comment;
 import jira.For.Android.TaskDetails.TaskDetailsActivity;

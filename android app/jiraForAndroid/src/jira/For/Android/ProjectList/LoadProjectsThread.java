@@ -3,7 +3,6 @@ package jira.For.Android.ProjectList;
 import jira.For.Android.DLog;
 import jira.For.Android.R;
 import jira.For.Android.Thread;
-import jira.For.Android.Connector.Connector;
 import jira.For.Android.Connector.ConnectorProjects;
 import jira.For.Android.DataTypes.Project;
 import android.view.View;

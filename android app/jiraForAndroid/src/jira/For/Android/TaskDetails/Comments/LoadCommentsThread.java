@@ -1,19 +1,14 @@
 package jira.For.Android.TaskDetails.Comments;
 
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
 import jira.For.Android.R;
 import jira.For.Android.Thread;
-import jira.For.Android.Connector.Connector;
 import jira.For.Android.Connector.ConnectorComments;
 import jira.For.Android.DataTypes.Comment;
 import jira.For.Android.DataTypes.Issue;
 import jira.For.Android.TaskDetails.TaskDetailsActivity;
-
-import org.xmlpull.v1.XmlPullParserException;
-
 import android.view.View;
 import android.widget.ListView;
 

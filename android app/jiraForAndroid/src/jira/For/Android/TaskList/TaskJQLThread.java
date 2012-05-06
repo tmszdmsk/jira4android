@@ -2,7 +2,6 @@ package jira.For.Android.TaskList;
 
 import jira.For.Android.DLog;
 import jira.For.Android.Thread;
-import jira.For.Android.Connector.Connector;
 import jira.For.Android.Connector.ConnectorIssues;
 import jira.For.Android.DataTypes.Issue;
 import android.util.Log;

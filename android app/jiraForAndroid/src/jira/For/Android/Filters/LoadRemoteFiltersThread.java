@@ -2,7 +2,6 @@ package jira.For.Android.Filters;
 
 import jira.For.Android.DLog;
 import jira.For.Android.Thread;
-import jira.For.Android.Connector.Connector;
 import jira.For.Android.Connector.ConnectorFilters;
 import jira.For.Android.DataTypes.Filter;
 import android.view.View;

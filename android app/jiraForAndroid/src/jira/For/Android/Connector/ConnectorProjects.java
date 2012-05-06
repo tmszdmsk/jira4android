@@ -30,7 +30,8 @@ public class ConnectorProjects {
 		        .withMethod("getProjectsNoSchemes")
 		        .withProperty("token", connector.getToken()).build();
 
-		Vector<SoapObject> vc = soap.execute(getProjects, Vector.class);
+		@SuppressWarnings("unchecked")
+        Vector<SoapObject> vc = soap.execute(getProjects, Vector.class);
 		if (vc == null) return null;
 
 		Project[] projects = new Project[vc.size()];

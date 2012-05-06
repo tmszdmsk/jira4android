@@ -47,7 +47,8 @@ public class ConnectorIssueTypes {
 	        SoapObject getIssueTypes) throws CommunicationException,
 	        AuthorizationException, AuthenticationException {
 
-		Vector<SoapObject> vc = soap.execute(getIssueTypes, Vector.class);
+		@SuppressWarnings("unchecked")
+        Vector<SoapObject> vc = soap.execute(getIssueTypes, Vector.class);
 
 		if (vc == null) {
 			return null;

@@ -1,8 +1,5 @@
 package jira.For.Android.Login;
 
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
-
 import jira.For.Android.DLog;
 import jira.For.Android.DefaultPreference;
 import jira.For.Android.PreferenceKeyHolder;

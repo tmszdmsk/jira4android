@@ -1,19 +1,15 @@
 package jira.For.Android.TaskDetails.WorkLog;
 
-import java.io.IOException;
 import java.util.List;
 
-import org.xmlpull.v1.XmlPullParserException;
-
-import android.view.View;
-import android.widget.ListView;
 import jira.For.Android.R;
 import jira.For.Android.Thread;
-import jira.For.Android.Connector.Connector;
 import jira.For.Android.Connector.ConnectorWorkLog;
 import jira.For.Android.DataTypes.Issue;
 import jira.For.Android.DataTypes.WorkLog;
 import jira.For.Android.TaskDetails.TaskDetailsActivity;
+import android.view.View;
+import android.widget.ListView;
 
 public class LoadWorkLogThread extends Thread<List<WorkLog>> {
 

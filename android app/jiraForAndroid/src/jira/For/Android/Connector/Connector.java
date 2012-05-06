@@ -1,25 +1,16 @@
 package jira.For.Android.Connector;
 
-import java.io.IOException;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.HashMap;
-import java.util.List;
 
 import jira.For.Android.DLog;
-import jira.For.Android.DataTypes.Comment;
-import jira.For.Android.DataTypes.Filter;
 import jira.For.Android.DataTypes.IssueType;
 import jira.For.Android.DataTypes.Priority;
 import jira.For.Android.DataTypes.Status;
 import jira.For.Android.DataTypes.User;
-import jira.For.Android.DataTypes.WorkLog;
 import jira.For.Android.ImagesCacher.ImagesCacher;
 import jira.For.Android.RemoteExceptions.RemoteException;
-
-import org.ksoap2.serialization.SoapSerializationEnvelope;
-import org.xmlpull.v1.XmlPullParserException;
-
 import android.content.Context;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;

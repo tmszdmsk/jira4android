@@ -43,7 +43,8 @@ public class ConnectorStatus {
 	                throws CommunicationException, AuthorizationException,
 	                AuthenticationException {
 
-		Vector<SoapObject> vc = soap.execute(getPriorities, Vector.class);
+		@SuppressWarnings("unchecked")
+        Vector<SoapObject> vc = soap.execute(getPriorities, Vector.class);
 		if (vc == null) {
 			return null;
 		}
