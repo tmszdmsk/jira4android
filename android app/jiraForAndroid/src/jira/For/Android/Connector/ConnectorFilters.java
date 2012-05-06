@@ -21,7 +21,7 @@ public class ConnectorFilters {
 	@Inject
 	private KSoapExecutor soap;
 
-	Filter[] jiraGetFilters() throws CommunicationException,
+	public Filter[] getFilters() throws CommunicationException,
 	        AuthorizationException, AuthenticationException {
 
 		SoapObject getFavouriteFilters = SoapObjectBuilder.start()

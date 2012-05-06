@@ -3,6 +3,7 @@ package jira.For.Android.Filters;
 import jira.For.Android.DLog;
 import jira.For.Android.R;
 import jira.For.Android.Connector.Connector;
+import jira.For.Android.Connector.ConnectorFilters;
 import jira.For.Android.Feedback.FeedbackActivity;
 import jira.For.Android.Help.HTMLDialog;
 import jira.For.Android.Login.LoginActivity;
@@ -35,8 +36,11 @@ public class FiltersListActivity extends RoboFragmentActivity {
 	private ImageView refreshButton;
 	@Inject
 	private Connector connector;
+	@Inject
+	private ConnectorFilters connectorFilters;
+
 	// //////////////////////////////////////////////////////////////////////////
-	
+
 	public ImageView getRefreshButton() {
 		return refreshButton;
 	}
@@ -52,7 +56,7 @@ public class FiltersListActivity extends RoboFragmentActivity {
 		// Activity isnt restarting on change orientation look manifest
 		setContentView(R.layout.filters_activity_layout);
 		pagerAdapter = new MyPagerAdapter(new ViewsForFilters(this,
-		        this.getBaseContext(),connector));
+		        this.getBaseContext(), connectorFilters));
 		viewPager = (ViewPager) findViewById(R.id.view_pager);
 		viewPager.setAdapter(pagerAdapter);
 		viewPager.setOffscreenPageLimit(10);
@@ -85,7 +89,7 @@ public class FiltersListActivity extends RoboFragmentActivity {
 				int curitem = viewPager.getCurrentItem();
 				pagerAdapter = new MyPagerAdapter(new ViewsForFilters(
 				        filtersListActivity, filtersListActivity
-				                .getBaseContext(), connector));
+				                .getBaseContext(), connectorFilters));
 				viewPager.setAdapter(pagerAdapter);
 				viewPager.setOffscreenPageLimit(10);
 				viewPager.setCurrentItem(curitem, false);

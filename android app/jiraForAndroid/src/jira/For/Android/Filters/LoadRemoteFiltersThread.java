@@ -3,6 +3,7 @@ package jira.For.Android.Filters;
 import jira.For.Android.DLog;
 import jira.For.Android.Thread;
 import jira.For.Android.Connector.Connector;
+import jira.For.Android.Connector.ConnectorFilters;
 import jira.For.Android.DataTypes.Filter;
 import android.view.View;
 import android.widget.ImageView;
@@ -11,14 +12,14 @@ class LoadRemoteFiltersThread extends Thread<Filter[]> {
 
 	private ViewsForFilters viewsForFilters;
 	ImageView refresh;
-	private final Connector connector;
+	private final ConnectorFilters connectorFilters;
 
 	public LoadRemoteFiltersThread(View view, FiltersListActivity activity,
-	                         ViewsForFilters viewsForFilters, Connector connector) {
+	                         ViewsForFilters viewsForFilters, ConnectorFilters connectorFilters) {
 		super(view, activity);
 
 		this.viewsForFilters = viewsForFilters;
-		this.connector = connector;
+		this.connectorFilters = connectorFilters;
 		refresh = activity.getRefreshButton();
 	}
 	
@@ -52,7 +53,7 @@ class LoadRemoteFiltersThread extends Thread<Filter[]> {
 	protected synchronized Filter[] doInBackground(Void... params) {
 		DLog.i("FiltersListActivity", "doInBackground() <-- i'm here");
 		try {
-			return connector.getFilters();
+			return connectorFilters.getFilters();
 		} catch (Exception e) {
 			setException(e);
 		}

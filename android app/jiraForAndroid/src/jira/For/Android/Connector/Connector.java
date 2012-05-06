@@ -9,10 +9,8 @@ import java.util.List;
 import jira.For.Android.DLog;
 import jira.For.Android.DataTypes.Comment;
 import jira.For.Android.DataTypes.Filter;
-import jira.For.Android.DataTypes.Issue;
 import jira.For.Android.DataTypes.IssueType;
 import jira.For.Android.DataTypes.Priority;
-import jira.For.Android.DataTypes.Project;
 import jira.For.Android.DataTypes.Status;
 import jira.For.Android.DataTypes.User;
 import jira.For.Android.DataTypes.WorkLog;
@@ -44,12 +42,6 @@ import com.jira4android.exceptions.CommunicationException;
 @Singleton
 public final class Connector {
 
-	@Inject
-	private ConnectorProjects connectorProjects;
-	@Inject
-	private ConnectorIssues connectorIssues;
-	@Inject
-	private ConnectorFilters connectorFilters;
 	@Inject
 	private ConnectorComments connectorComments;
 	@Inject
@@ -144,22 +136,6 @@ public final class Connector {
 	public boolean jiraLogout() {
 		authenthicationService.logout();
 		return true;
-	}
-
-	/**
-	 * Returns an array of filters which are saved on server
-	 * 
-	 * @return Tab of filters
-	 * @throws XmlPullParserException
-	 *             , Exception
-	 * @throws IOException
-	 * @throws Exception
-	 *             with msg Not Connected or Issue Key is null
-	 */
-	public Filter[] getFilters() throws IOException, XmlPullParserException,
-	        Exception {
-
-		return connectorFilters.jiraGetFilters();
 	}
 
 	/**
