@@ -10,6 +10,7 @@ import android.widget.ListView;
 import jira.For.Android.R;
 import jira.For.Android.Thread;
 import jira.For.Android.Connector.Connector;
+import jira.For.Android.Connector.ConnectorWorkLog;
 import jira.For.Android.DataTypes.Issue;
 import jira.For.Android.DataTypes.WorkLog;
 import jira.For.Android.TaskDetails.TaskDetailsActivity;
@@ -17,12 +18,13 @@ import jira.For.Android.TaskDetails.TaskDetailsActivity;
 public class LoadWorkLogThread extends Thread<List<WorkLog>> {
 
 	Issue task;
-	private final Connector connector;
+	private final ConnectorWorkLog connectorWorklog;
 
-	public LoadWorkLogThread(View view, TaskDetailsActivity activity, Issue task, Connector connector) {
+	public LoadWorkLogThread(View view, TaskDetailsActivity activity,
+	                         Issue task, ConnectorWorkLog connector) {
 		super(view, activity);
 		this.task = task;
-		this.connector = connector;
+		this.connectorWorklog = connector;
 	}
 
 	protected synchronized void onPostExecute(List<WorkLog> result) {
@@ -41,21 +43,14 @@ public class LoadWorkLogThread extends Thread<List<WorkLog>> {
 			listView.setAdapter(adapter);
 		}
 	}
-	
+
 	@Override
 	protected synchronized List<WorkLog> doInBackground(Void... params) {
 		try {
-	        return connector.getWorkLog(task.getKey());
-        } catch (IOException e) {
-	        // TODO Auto-generated catch block
-	        e.printStackTrace();
-        } catch (XmlPullParserException e) {
-	        // TODO Auto-generated catch block
-	        e.printStackTrace();
-        } catch (Exception e) {
-	        // TODO Auto-generated catch block
-	        e.printStackTrace();
-        }
+			return connectorWorklog.getWorklog(task.getKey());
+		} catch (Exception e) {
+			setException(e);
+		}
 		return null;
 	}
 

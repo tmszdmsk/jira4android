@@ -28,7 +28,7 @@ public class ConnectorWorkLog {
 	@Inject
 	private KSoapExecutor soap;
 
-	public synchronized List<WorkLog> jiraGetWorklogs(String issueKey)
+	public synchronized List<WorkLog> getWorklog(String issueKey)
 	        throws IOException, XmlPullParserException, Exception {
 
 		if (issueKey == null) throw new Exception("Bad arguments\nIssue key:"

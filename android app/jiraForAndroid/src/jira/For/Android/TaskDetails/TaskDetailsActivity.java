@@ -4,6 +4,7 @@ import jira.For.Android.DLog;
 import jira.For.Android.R;
 import jira.For.Android.Connector.Connector;
 import jira.For.Android.Connector.ConnectorComments;
+import jira.For.Android.Connector.ConnectorWorkLog;
 import jira.For.Android.DataTypes.Issue;
 import jira.For.Android.Feedback.FeedbackActivity;
 import jira.For.Android.Help.HTMLDialog;
@@ -60,6 +61,8 @@ public class TaskDetailsActivity extends RoboFragmentActivity {
 	private Connector connector;
 	@Inject
 	private ConnectorComments connectorComments;
+	@Inject
+	private ConnectorWorkLog connectorWorkLog;
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -90,7 +93,7 @@ public class TaskDetailsActivity extends RoboFragmentActivity {
 		task = (Issue) extras.getSerializable("task");
 
 		// setting adapter and its layout
-		pagerAdapter = new MyPagerAdapter(new ViewsForTaskDetails(this, task, connector, connectorComments));
+		pagerAdapter = new MyPagerAdapter(new ViewsForTaskDetails(this, task, connector, connectorComments, connectorWorkLog));
 		viewPager = (ViewPager) findViewById(R.id.view_pager);
 		viewPager.setAdapter(pagerAdapter);
 		viewPager.setOffscreenPageLimit(10);
@@ -117,7 +120,7 @@ public class TaskDetailsActivity extends RoboFragmentActivity {
 			public void onClick(View v) {
 				int curitem = viewPager.getCurrentItem();
 				pagerAdapter = new MyPagerAdapter(new ViewsForTaskDetails(
-				        taskDetailsActivity, task, connector, connectorComments));
+				        taskDetailsActivity, task, connector, connectorComments, connectorWorkLog));
 				viewPager.setAdapter(pagerAdapter);
 				viewPager.setOffscreenPageLimit(10);
 				indicator.init(curitem, pagerAdapter.getCount(), pagerAdapter);

@@ -137,20 +137,6 @@ public final class Connector {
 	}
 
 	/**
-	 * Returns a list of worklog
-	 * 
-	 * @return List of worklog
-	 * @throws XmlPullParserException
-	 * @throws IOException
-	 * @throws Exception
-	 */
-	public synchronized List<WorkLog> getWorkLog(String issueKey)
-	        throws IOException, XmlPullParserException, Exception {
-
-		return connectorWorkLog.jiraGetWorklogs(issueKey);
-	}
-
-	/**
 	 * Download User full information
 	 * 
 	 * @throws AuthenticationException

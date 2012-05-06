@@ -7,6 +7,7 @@ import jira.For.Android.DLog;
 import jira.For.Android.R;
 import jira.For.Android.Connector.Connector;
 import jira.For.Android.Connector.ConnectorComments;
+import jira.For.Android.Connector.ConnectorWorkLog;
 import jira.For.Android.DataTypes.Comment;
 import jira.For.Android.DataTypes.DataTypesMethods;
 import jira.For.Android.DataTypes.Issue;
@@ -42,11 +43,13 @@ class ViewsForTaskDetails implements ViewForPagerInterface {
 	InputMethodManager imm;
 	private final Connector connector;
 	private final ConnectorComments connectorComments;
+	private final ConnectorWorkLog connectorWorkLog;
 
-	public ViewsForTaskDetails(Activity activity, Issue task, Connector connector, ConnectorComments connectorComments) {
+	public ViewsForTaskDetails(Activity activity, Issue task, Connector connector, ConnectorComments connectorComments, ConnectorWorkLog connectorWorkLog) {
 		super();
 		this.connector = connector;
 		this.connectorComments = connectorComments;
+		this.connectorWorkLog = connectorWorkLog;
 		if (activity instanceof TaskDetailsActivity) this.activity = (TaskDetailsActivity) activity;
 		this.task = task;
 		imm = (InputMethodManager) activity
@@ -198,7 +201,7 @@ class ViewsForTaskDetails implements ViewForPagerInterface {
 	 */
 	private void setWorkLogInfo(View view) {
 		// TODO Auto-generated method stub
-		new LoadWorkLogThread(view, activity, task, connector).execute();
+		new LoadWorkLogThread(view, activity, task, connectorWorkLog).execute();
 	}
 
 	/**
