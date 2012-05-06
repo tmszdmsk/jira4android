@@ -138,20 +138,6 @@ public final class Connector {
 		return true;
 	}
 
-	/**
-	 * Returns a list of comments
-	 * 
-	 * @return List of comments
-	 * @throws XmlPullParserException
-	 * @throws IOException
-	 * @throws Exception
-	 */
-	public synchronized List<Comment> getComments(String issueKey)
-	        throws IOException, XmlPullParserException, Exception {
-
-		return connectorComments.jiraGetComments(issueKey);
-	}
-
 	public void addComment(String issueKey, Comment comment)
 	        throws IOException, XmlPullParserException, Exception {
 

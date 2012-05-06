@@ -7,6 +7,7 @@ import java.util.List;
 import jira.For.Android.R;
 import jira.For.Android.Thread;
 import jira.For.Android.Connector.Connector;
+import jira.For.Android.Connector.ConnectorComments;
 import jira.For.Android.DataTypes.Comment;
 import jira.For.Android.DataTypes.Issue;
 import jira.For.Android.TaskDetails.TaskDetailsActivity;
@@ -19,14 +20,14 @@ import android.widget.ListView;
 public class LoadCommentsThread extends Thread<List<Comment>> {
 
 	Issue task;
-	private final Connector connector;
 
+	private final ConnectorComments connectorComments;
 
 	public LoadCommentsThread(View view, TaskDetailsActivity activity,
-	                          Issue task, Connector connector) {
+	                          Issue task, ConnectorComments connectorComments) {
 		super(view, activity);
 		this.task = task;
-		this.connector = connector;
+		this.connectorComments = connectorComments;
 	}
 
 	@Override
@@ -53,16 +54,10 @@ public class LoadCommentsThread extends Thread<List<Comment>> {
 	@Override
 	protected synchronized List<Comment> doInBackground(Void... params) {
 		try {
-			return connector.getComments(task.getKey());
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} catch (XmlPullParserException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+			return connectorComments.getComments(task.getKey());
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
-			e.printStackTrace();
+			setException(e);
 		}
 		return null;
 	}

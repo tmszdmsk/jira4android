@@ -23,7 +23,7 @@ public class ConnectorComments {
 	@Inject
 	private KSoapExecutor soap;
 
-	synchronized List<Comment> jiraGetComments(String issueKey)
+	public synchronized List<Comment> getComments(String issueKey)
 	        throws CommunicationException, AuthorizationException,
 	        AuthenticationException {
 		if (issueKey == null) {
