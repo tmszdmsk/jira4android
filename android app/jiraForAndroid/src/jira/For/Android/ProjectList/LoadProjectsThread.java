@@ -4,6 +4,7 @@ import jira.For.Android.DLog;
 import jira.For.Android.R;
 import jira.For.Android.Thread;
 import jira.For.Android.Connector.Connector;
+import jira.For.Android.Connector.ConnectorProjects;
 import jira.For.Android.DataTypes.Project;
 import android.view.View;
 import android.widget.ImageView;
@@ -11,15 +12,15 @@ import android.widget.ListView;
 
 public class LoadProjectsThread extends Thread<Project[]> {
 
-	private final Connector connector;
+	private final ConnectorProjects connectorProjects;
 
 	public LoadProjectsThread(View view,
 	                          ProjectListActivity projectListActivity,
-	                          Connector connector) {
+	                          ConnectorProjects connectorProjects) {
 		super(view, projectListActivity);
 
 		activity = projectListActivity;
-		this.connector = connector;
+		this.connectorProjects = connectorProjects;
 		refresh = projectListActivity.getRefreshButton();
 	}
 
@@ -38,7 +39,7 @@ public class LoadProjectsThread extends Thread<Project[]> {
 		try {
 			// TODO Trzeba obsłużyć czy uzytkownik chce pobierać rysunki do
 			// projektów
-			return connector.getProjects(true);
+			return connectorProjects.getProjects(true);
 		} catch (Exception e) {
 			setException(e);
 		}

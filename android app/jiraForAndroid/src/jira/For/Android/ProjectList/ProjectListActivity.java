@@ -4,6 +4,7 @@ import jira.For.Android.DLog;
 import jira.For.Android.GeneralActivity;
 import jira.For.Android.R;
 import jira.For.Android.Connector.Connector;
+import jira.For.Android.Connector.ConnectorProjects;
 import jira.For.Android.DataTypes.Project;
 import jira.For.Android.Feedback.FeedbackActivity;
 import jira.For.Android.Filters.FiltersListActivity;
@@ -35,6 +36,8 @@ public class ProjectListActivity extends GeneralActivity implements
 	private ImageView refresh;
 	@Inject
 	private Connector connector;
+	@Inject
+	private ConnectorProjects connectorProjects;
 	
 	public ImageView getRefreshButton() {
 		return refresh;
@@ -55,7 +58,7 @@ public class ProjectListActivity extends GeneralActivity implements
 		TextView txtView = (TextView) findViewById(R.id.text);
 		txtView.setText(R.string.projects);
 		projectListActivity = this;
-		thread = new LoadProjectsThread(getWindow().getDecorView(), this, connector);
+		thread = new LoadProjectsThread(getWindow().getDecorView(), this, connectorProjects);
 		thread.execute();
 		refresh.setOnClickListener(new OnClickListener() {
 
@@ -69,7 +72,7 @@ public class ProjectListActivity extends GeneralActivity implements
 				findViewById(R.id.project_list_view).setVisibility(
 				        View.INVISIBLE);
 				thread = new LoadProjectsThread(getWindow().getDecorView(),
-				        projectListActivity, connector);
+				        projectListActivity, connectorProjects);
 				thread.execute();
 
 			}

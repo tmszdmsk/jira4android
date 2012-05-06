@@ -22,7 +22,7 @@ public class ConnectorProjects {
 	@Inject
 	private KSoapExecutor soap;
 
-	Project[] jiraGetProjects(boolean downloadAvatars)
+	public Project[] getProjects(boolean downloadAvatars)
 	        throws CommunicationException, AuthorizationException,
 	        AuthenticationException {
 

@@ -147,20 +147,6 @@ public final class Connector {
 	}
 
 	/**
-	 * This method gets Projects from the server.
-	 * 
-	 * @throws AuthenticationException
-	 * @throws AuthorizationException
-	 * @throws CommunicationException
-	 * @throws Exception
-	 */
-	public Project[] getProjects(boolean downloadAvatars)
-	        throws CommunicationException, AuthorizationException,
-	        AuthenticationException {
-		return connectorProjects.jiraGetProjects(downloadAvatars);
-	}
-
-	/**
 	 * @return Returns an array of Tasks
 	 * @throws XmlPullParserException
 	 * @throws IOException
