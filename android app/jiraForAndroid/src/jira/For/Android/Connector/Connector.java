@@ -43,8 +43,6 @@ import com.jira4android.exceptions.CommunicationException;
 public final class Connector {
 
 	@Inject
-	private ConnectorWorkLog connectorWorkLog;
-	@Inject
 	private ConnectorUser connectorUser;
 	@Inject
 	private ConnectorIssueTypes connectorIssueTypes;
@@ -270,14 +268,6 @@ public final class Connector {
 		return authenthicationService.getToken();
 	}
 
-	/**
-	 * Create new Serializable Envelope
-	 * 
-	 * @return new SoapSerializationEnvelope
-	 */
-	public SoapSerializationEnvelope getNewEnvelope() {
-		return new SoapSerializationEnvelope(SoapSerializationEnvelope.VER11);
-	}
 
 	/**
 	 * Check do we have internet connection simply is data transfer is available
