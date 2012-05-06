@@ -147,19 +147,6 @@ public final class Connector {
 	}
 
 	/**
-	 * @return Returns an array of Tasks
-	 * @throws XmlPullParserException
-	 * @throws IOException
-	 * @throws Exception
-	 *             with msg Project ID is null or Not Connected
-	 */
-	public Issue[] getIssues(String projectId) throws IOException,
-	        XmlPullParserException, Exception {
-		return connectorIssues.jiraGetIssues("type=Story AND project="
-		        + projectId, 20);
-	}
-
-	/**
 	 * @return Returns an array of SubTasks
 	 * @throws XmlPullParserException
 	 * @throws IOException
