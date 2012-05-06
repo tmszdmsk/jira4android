@@ -43,8 +43,6 @@ import com.jira4android.exceptions.CommunicationException;
 public final class Connector {
 
 	@Inject
-	private ConnectorComments connectorComments;
-	@Inject
 	private ConnectorWorkLog connectorWorkLog;
 	@Inject
 	private ConnectorUser connectorUser;
@@ -136,12 +134,6 @@ public final class Connector {
 	public boolean jiraLogout() {
 		authenthicationService.logout();
 		return true;
-	}
-
-	public void addComment(String issueKey, Comment comment)
-	        throws IOException, XmlPullParserException, Exception {
-
-		connectorComments.jiraAddComment(issueKey, comment);
 	}
 
 	/**

@@ -75,7 +75,7 @@ public class ConnectorComments {
 	 * @throws AuthorizationException
 	 * @throws CommunicationException
 	 */
-	void jiraAddComment(String issueKey, Comment comment)
+	public void addComment(String issueKey, Comment comment)
 	        throws CommunicationException, AuthorizationException,
 	        AuthenticationException {
 

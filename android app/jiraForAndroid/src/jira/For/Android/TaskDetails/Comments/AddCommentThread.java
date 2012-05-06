@@ -4,6 +4,7 @@ import jira.For.Android.DLog;
 import jira.For.Android.R;
 import jira.For.Android.Thread;
 import jira.For.Android.Connector.Connector;
+import jira.For.Android.Connector.ConnectorComments;
 import jira.For.Android.DataTypes.Comment;
 import jira.For.Android.TaskDetails.TaskDetailsActivity;
 import android.content.Context;
@@ -17,14 +18,14 @@ public class AddCommentThread extends Thread<Void> {
 
 	private Comment comment;
 	private String issueKey;
-	private final Connector connector;
+	private final ConnectorComments connectorComments;
 
 	public AddCommentThread(TaskDetailsActivity taskDetailsActivity,
-	                        Comment comment, String issueKey, Connector connector) {
+	                        Comment comment, String issueKey, ConnectorComments connectorComments) {
 		super(taskDetailsActivity);
 		this.comment = comment;
 		this.issueKey = issueKey;
-		this.connector = connector;
+		this.connectorComments = connectorComments;
 	}
 
 	@Override
@@ -48,7 +49,7 @@ public class AddCommentThread extends Thread<Void> {
 	protected Void doInBackground(Void... params) {
 		DLog.i("AddCommentThread", "doInBackground() <-- i'm here");
 		try {
-			connector.addComment(issueKey, comment);
+			connectorComments.addComment(issueKey, comment);
 		} catch (Exception e) {
 			setException(e);
 		}

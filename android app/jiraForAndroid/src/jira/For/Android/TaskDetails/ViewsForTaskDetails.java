@@ -262,7 +262,7 @@ class ViewsForTaskDetails implements ViewForPagerInterface {
 				        DataTypesMethods.dateToGMTString(date.getTime()),
 				        DataTypesMethods.dateToGMTString(date.getTime()));
 
-				new AddCommentThread(activity, comment, task.getKey(), connector)
+				new AddCommentThread(activity, comment, task.getKey(), connectorComments)
 				        .execute();
 			}
 		});
