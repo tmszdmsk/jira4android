@@ -81,7 +81,6 @@
         android:layout_height="match_parent"
         android:layout_alignBottom="@id/rowTaskListByJQLActivityTaskSummaryTextView"
         android:layout_alignParentLeft="true"
-        android:layout_alignRight="@+id/rowTaskListByJQLActivity_color_TextView"
         android:background="@color/example_color"
         android:padding="10dp" />
 

@@ -315,7 +315,7 @@ public class LoginActivity extends RoboActivity {
 	 * @return valid URL or null
 	 */
 	private String getUrlAddress() {
-		String str = urlAddress.getText().toString();
+		String str = urlAddress.getText().toString().trim();
 		return str;
 	}
 
