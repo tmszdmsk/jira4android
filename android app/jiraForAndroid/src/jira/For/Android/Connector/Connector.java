@@ -79,29 +79,13 @@ public final class Connector {
 	public boolean jiraLogin(String username, String password, String url,
 	        boolean secureConnection) throws AuthenticationException,
 	        CommunicationException, AuthorizationException {
-		String protocol = secureConnection ? "https" : "http";
-		String hostandport = url.split("/", 1)[0];
-		String host = hostandport.split(":", 1)[0];
-		Integer port = null;
-		if (hostandport.split(":", 1).length > 1) {
-			port = Integer.parseInt(hostandport.split(":", 1)[1]);
-		}
-		String path = "";
-		if (url.split("/", 1).length > 1) {
-			path = url.split("/", 1)[1];
-		}
-		URL surl = null;
-		try {
-			if (port == null) {
-				surl = new URL(protocol, host, path);
-			}
-			else {
-				surl = new URL(protocol, host, port, path);
-			}
-		} catch (MalformedURLException e) {
-			// TODO Auto-generated catch block
-			throw new RuntimeException(e);
-		}
+		String protocol = secureConnection ? "https://" : "http://";
+		URL surl;
+        try {
+	        surl = new URL(protocol+url);
+        } catch (MalformedURLException e) {
+	        throw new CommunicationException(e);
+        }
 		authenthicationService.login(username, password, surl);
 
 		downloadIssueTypes();
