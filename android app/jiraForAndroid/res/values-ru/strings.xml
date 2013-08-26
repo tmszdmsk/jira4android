@@ -1,0 +1,184 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="app_name">Jira4android</string>
+    <string name="unknown_error">Неизвестная ошибка</string>
+
+    <!-- Useful strings -->
+    <string name="ok">Да</string>
+    <string name="cancel">Отмена</string>
+
+    <!-- START Login Activity -->
+    <string name="login_URL_hint">example.org</string>
+    <string name="login_username_hint">Логин</string>
+    <string name="login_password_hint">Пароль</string>
+    <string name="login_login_Button">Войти</string>
+    <string name="unknown_host">Несуществующий хост</string>
+    <!-- For toasts -->
+    <string name="login_toast_wrongURL">Неправильный URL!</string>
+    <string name="login_toast_emptyUsername">Логин не может быть пустым!</string>
+    <string name="login_toast_emptyPassword">Пароль не может быть пустым!</string>
+    <string name="login_toast_invalidUsername">Логин неверный!</string>
+    <string name="login_toast_invalidPassword">Пароль неверный!</string>
+    <string name="login_toast_emptyUsernamePassword">Логин и пароль не могут быть пустыми!</string>
+    <string name="login_toast_loginFail">Авторизация не удалась</string>
+    <string name="login_toast_logoutFail">Выход не удался</string>
+    <string name="login_toast_unresolvedHost">Host is unresolved</string>
+    <string name="login_toast_invalidUsernameOrPassword">Неправильный логин или пароль</string>
+    <string name="login_toast_no_internet">Нет интернета</string>
+    <string name="login_toast_connectionError">Ошибка соединения</string>
+    <string name="login_toast_connectionInterrupted">Связь прервана</string>
+    <string name="login_toast_validationFail">Ошибка валидации</string>
+    <string name="login_toast_permissionViolated">Permissions are violated remotely</string>
+    <!-- END Login Activity -->
+
+
+    <!-- START Project List Activity -->
+    <string name="project_list_name">Список проектов</string>
+    <string name="view_title"><b>
+            <i>Выберите проект чтобы увидеть его:</i>
+        </b></string>
+    <string name="ok_button_text"><u>Ok</u></string>
+    <!-- END Project List Activity -->
+
+
+    <!-- START Task Details Activity -->
+    <string name="taskDetailsActivityDetails">Детали</string>
+    <string name="taskDetailsActivityDates">Даты</string>
+    <string name="taskDetailsActivityPeople">Люди</string>
+    <string name="taskDetailsActivityType">Тип: </string>
+    <string name="taskDetailsActivityPriority">Приоритет: </string>
+    <string name="taskDetailsActivityAffectsVersion">Встречается с версии: </string>
+    <string name="taskDetailsActivityComponent">Компоненты: </string>
+    <!-- <string name="taskDetailsActivityLabels">Labels:&#160;</string> -->
+    <string name="taskDetailsActivityStatus">Статус: </string>
+    <string name="taskDetailsActivityResolution">Резолюция: </string>
+    <string name="taskDetailsActivityFixVersion">Версия исправления: </string>
+    <string name="taskDetailsActivityAssignee">Ответственный: </string>
+    <string name="taskDetailsActivityReporter">Создатель: </string>
+    <string name="taskDetailsActivityCreated">Создан: </string>
+    <string name="taskDetailsActivityUpdated">Обновлен: </string>
+    <string name="none">None</string>
+    <string name="taskDetailsActivityDescription">Описание</string>
+    <string name="taskDetailsActivitySummary">Заглавие</string>
+    <!-- END Task Details Activity -->
+
+
+    <!-- START Task List Activity -->
+    <string name="task_list_name">Список Задач</string>
+    <string name="tasklist_taskKey_TextView">Ключ задачи</string>
+    <string name="tasklist_taskSummary_TextView">Заголовок задачи</string>
+    <string name="tasklist_taskNumberOfSubs_TextView">Количество подзадач</string>
+    <string name="tasklist_subtaskKey_TextView">Ключ подзадачи</string>
+    <string name="tasklist_subtaskSummary_TextView">Заголовок подзадачи</string>
+    <!-- END Task List Activity -->
+
+
+    <!-- START Filters List Activity -->
+    <string name="filters_list_name">Список фильтров</string>
+
+    <!-- Titles in page view ORDER IS IMPORTANT -->
+    <string name="filters_title1">Локальные</string>
+    <string name="filters_title2">На сервере</string>
+    <!-- Filters Names ORDER IS IMPORTANT -->
+    <string name="filters_list_1_name">Назначенное мне</string>
+    <string name="filters_list_2_name">Добавленное недавно</string>
+    <string name="filters_list_3_name">Самые важные неназначенные</string>
+    <string name="filters_list_4_name">Все открытые неназначенные</string>
+    <string name="filters_list_5_name">Все в прогрессе</string>
+    <string name="filters_list_6_name">Решенные Недавно</string>
+    <string name="filters_list_7_name">Обновленные Недавно</string>
+    <string name="filters_list_8_name">Созданные мной</string>
+    <!-- Filters JQL ORDER IS IMPORTANT -->
+    <string name="filters_list_1_JQL">assignee = currentUser() and status in (Open ,\"In Progress\",Reopened) ORDER BY updated</string>
+    <string name="filters_list_2_JQL">created is not EMPTY ORDER BY created</string>
+    <string name="filters_list_3_JQL">assignee is EMPTY ORDER BY priority,updated</string>
+    <string name="filters_list_4_JQL">status = Open  And assignee is EMPTY ORDER BY updated</string>
+    <string name="filters_list_5_JQL">status = \"In Progress\" ORDER BY updated</string>
+    <string name="filters_list_6_JQL">status in (Closed,Resolved) ORDER BY updated</string>
+    <string name="filters_list_7_JQL">updated is not EMPTY ORDER BY updated</string>
+    <string name="filters_list_8_JQL">reporter = currentUser() ORDER BY updated</string>
+    <!-- END Task Filters List Activity -->
+
+
+    <!-- START Row Task List By JQL Activity -->
+    <string name="issues">Задачи</string>
+    <string name="rowTaskListByJQL_assignment">Неназначено</string>
+    <string name="rowTasklist_taskKey_TextView">Ключ задачи</string>
+    <string name="rowTasklist_taskSummary_TextView">Заголовок задачи</string>
+    <!-- END Row Task List By JQL Activity -->
+
+    <string name="task_list_by_jql_activity">Список Задач</string>
+    <string name="data_is_loading">Данные загружаются...</string>
+    <string name="no_filters_on_server">Нет фильтров на сервере</string>
+    <string name="no_project_visible_for_you_on_server">Нет видимых для вас проектов на сервере</string>
+    <string name="no_issues_on_server">Нет задач на сервере</string>
+    <string name="remember_me">Запомнить меня</string>
+    <string name="if_you_check_this_field_the_user_and_password_will_be_saved_and_log_in_will_be_automaticly">Если вы это отметите, ваш логин и пароль будет запомнен и вы будете входить автоматически</string>
+
+    <!-- START Comment List -->
+    <string name="commentator">Комментатор</string>
+    <string name="comment_date">Дата комментария</string>
+    <string name="comment">Комментарий</string>
+    <string name="no_comments_on_issue">Нет комментариев для данной задачи</string>
+    <!-- END Comment List -->
+    <string name="hint_enter_comment">Ввести комментарий</string>
+    <string name="time_out_has_occurred_on_a_socket_read">Тайм аут</string>
+    <string name="connection_refused">В соединении отказано</string>
+    <string name="bind_socket_problem">Проблема с сокетом</string>
+    <string name="http_needs_to_be_retired">HTTP needs to be retired</string>
+    <string name="malformed_url_">Malformed URL!</string>
+    <string name="no_route_to_host_i_can_t_connect">No route to host. I can\'t connect</string>
+    <string name="icmp_port_unreachable">ICMP port unreachable</string>
+    <string name="tcp_error">TCP error</string>
+    <string name="socket_problems_tcp_problem">Socket problems. TCP problem</string>
+    <string name="unknown_service_">Unknown service!</string>
+    <string name="uri_syntax_problem">URI syntax problem</string>
+    <string name="send">Отправить</string>
+    <string name="authentication_failures_or_errors_">Аутентификация не удалась или ошибка.</string>
+    <string name="problems_on_server_with_data">Проблема на сервере с данными</string>
+    <string name="permissions_are_violated_remotely">Permissions are violated remotely</string>
+    <string name="remote_data_does_not_validate_properly">Remote data does not validate properly</string>
+    <string name="logout">Выход</string>
+    <string name="help">Помощь</string>
+
+    <!-- START Headers -->
+    <string name="projects">Проекты</string>
+    <string name="filters">Фильтры</string>
+    <!-- END Headers -->
+
+
+    <!-- START Worklog -->
+    <string name="no_worklog_on_issue">No work has yet been logged on this issue</string>
+    <string name="worklogger">Work logger</string>
+    <string name="worklog_date">Date of work log</string>
+    <string name="worklog_time_spent_label">Потраченное время:</string>
+    <string name="worklog_time_spent">потраченное время</string>
+    <string name="worklog_comment">Комментарий</string>
+    <!-- END Worklog -->
+
+    <string name="crash_toast_text">Ooooops ! I crashed, but a report has been sent to my developer to help him fix the issue !</string>
+    <string name="crash_notif_ticker_text">Unexpected error, please send a report...</string>
+    <string name="crash_notif_title">CrashTest has crashed...</string>
+    <string name="crash_notif_text">Please click here to help fix the issue.</string>
+    <string name="crash_dialog_title">CrashTest has crashed</string>
+    <string name="crash_dialog_text">An unexpected error occurred forcing the
+    application to stop. Please help us fix this by sending us error data,
+    all you have to do is click \'OK\'.</string>
+    <string name="crash_dialog_comment_prompt">You might add your comments about the problem below:</string>
+    <string name="crash_dialog_ok_toast">Спасибо !</string>
+    <string name="feedback">Обратная связь</string>
+    <string name="feedbackTitle">Report a bug / Request feature</string>
+    <string name="back">Назад</string>
+    <string name="feedbackActivityLabel">Feedback please fill and send :)</string>
+    <string name="please_type_here">Набирать текст тут...</string>
+    <!-- In future we should set it for e.g jira group mail -->
+    <string name="mailForFeedback">drozddawid.uam@gmail.com</string>
+
+    <!-- Help -->
+    <string name="help_button">Закрыть</string>
+    <string name="item_http">http://</string>
+    <string name="item_https">https://</string>
+    <string name="thanks_for_feedback">Thanks for feedback!</string>
+
+</resources>
