@@ -78,8 +78,8 @@
     <string name="filters_list_name">Список фильтров</string>
 
     <!-- Titles in page view ORDER IS IMPORTANT -->
-    <string name="filters_title1">Локальные фильтры</string>
-    <string name="filters_title2">Фильтры на сервере</string>
+    <string name="filters_title1">Локальные</string>
+    <string name="filters_title2">На сервере</string>
     <!-- Filters Names ORDER IS IMPORTANT -->
     <string name="filters_list_1_name">Назначенное мне</string>
     <string name="filters_list_2_name">Добавленное недавно</string>
@@ -110,7 +110,7 @@
 
     <string name="task_list_by_jql_activity">Список Задач</string>
     <string name="data_is_loading">Данные загружаются...</string>
-    <string name="no_filters_on_server">Нет филтров на сервере</string>
+    <string name="no_filters_on_server">Нет фильтров на сервере</string>
     <string name="no_project_visible_for_you_on_server">Нет видимых для вас проектов на сервере</string>
     <string name="no_issues_on_server">Нет задач на сервере</string>
     <string name="remember_me">Запомнить меня</string>
@@ -135,8 +135,8 @@
     <string name="unknown_service_">Unknown service!</string>
     <string name="uri_syntax_problem">URI syntax problem</string>
     <string name="send">Отправить</string>
-    <string name="authentication_failures_or_errors_">Authentication failures or errors.</string>
-    <string name="problems_on_server_with_data">Problems on server with data</string>
+    <string name="authentication_failures_or_errors_">Аутентификация не удалась или ошибка.</string>
+    <string name="problems_on_server_with_data">Проблема на сервере с данными</string>
     <string name="permissions_are_violated_remotely">Permissions are violated remotely</string>
     <string name="remote_data_does_not_validate_properly">Remote data does not validate properly</string>
     <string name="logout">Выход</string>
@@ -166,10 +166,10 @@
     application to stop. Please help us fix this by sending us error data,
     all you have to do is click \'OK\'.</string>
     <string name="crash_dialog_comment_prompt">You might add your comments about the problem below:</string>
-    <string name="crash_dialog_ok_toast">Thank you !</string>
-    <string name="feedback">Feedback</string>
+    <string name="crash_dialog_ok_toast">Спасибо !</string>
+    <string name="feedback">Обратная связь</string>
     <string name="feedbackTitle">Report a bug / Request feature</string>
-    <string name="back">Back</string>
+    <string name="back">Назад</string>
     <string name="feedbackActivityLabel">Feedback please fill and send :)</string>
     <string name="please_type_here">Набирать текст тут...</string>
     <!-- In future we should set it for e.g jira group mail -->
